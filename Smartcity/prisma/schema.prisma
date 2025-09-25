@@ -10,8 +10,8 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider = "sqlite"
+  url      = "file:./dev.db"
 }
 
 model User {
@@ -19,17 +19,10 @@ model User {
   email     String   @unique
   name      String
   userType  UserType @default(CITIZEN)
-  joinDate  DateTime @default(now())
-  
-  // Civic engagement tracking
-  civicScore    Int      @default(0)
-  lastActive    DateTime @default(now())
-  neighborhood  String?
   
   // Relations
   votes           Vote[]
   ideaSubmissions IdeaSubmission[]
-  votingHistory   VotingHistory[]
   
   @@map("users")
 }
@@ -40,32 +33,23 @@ model Project {
   description String
   category    ProjectCategory
   
-  // Location data for map display
+  // Location for map display
   latitude    Float
   longitude   Float
   location    String? // Human-readable location
   
-  // Project lifecycle
+  // Project status
   status      ProjectStatus   @default(PROPOSAL)
   budget      Int?
-  timeline    String?
-  impact      String[] // Affected neighborhoods
   
-  // Voting configuration
+  // Voting period
   votingStart DateTime?
   votingEnd   DateTime?
-  isVotingOpen Boolean @default(false)
-  
-  // External integration
-  externalId  String? // For Bordeaux PLU API integration
-  sourceApi   String? // Which API this came from
   
   // Relations
   votes       Vote[]
-  updates     ProjectUpdate[]
   
   createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
   
   @@map("projects")
 }
@@ -75,7 +59,6 @@ model Vote {
   userId    String
   projectId String
   voteType  VoteType
-  weight    Float    @default(1.0) // For future vote weighting
   createdAt DateTime @default(now())
   
   user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -97,91 +80,35 @@ model IdeaSubmission {
   longitude   Float
   location    String
   
-  // Additional submission data
-  expectedBudget Int?
-  timeline       String?
-  photos         String[] // URLs to uploaded photos
-  
-  // Processing status
   status      SubmissionStatus @default(SUBMITTED)
-  adminNotes  String?
-  reviewedAt  DateTime?
-  
-  // If approved, link to created project
-  projectId   String?
   
   user        User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   
   createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
   
   @@map("idea_submissions")
 }
 
-model VotingHistory {
-  id        String   @id @default(cuid())
-  userId    String
-  projectId String
-  action    String   // "voted", "changed_vote", "removed_vote"
-  details   Json?    // Additional context
-  createdAt DateTime @default(now())
-  
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
-  @@map("voting_history")
-}
-
-model ProjectUpdate {
-  id        String   @id @default(cuid())
-  projectId String
-  title     String
-  content   String
-  updateType UpdateType @default(GENERAL)
-  isPublic  Boolean  @default(true)
-  createdAt DateTime @default(now())
-  
-  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  
-  @@map("project_updates")
-}
-
-model BoiteAIdees {
-  id            String   @id @default(cuid())
-  isOpen        Boolean  @default(false)
-  openDate      DateTime?
-  closeDate     DateTime?
-  theme         String?  // Optional theme for submission period
-  description   String?
-  createdAt     DateTime @default(now())
-  
-  @@map("boite_a_idees")
-}
-
-// Enums for the civic engagement platform
+// Essential enums only
 enum UserType {
-  CITIZEN      // Regular citizen voter
-  ADMIN        // City administrator
-  MODERATOR    // Community moderator
+  CITIZEN
+  ADMIN
 }
 
 enum ProjectCategory {
-  LOGEMENT            // Housing projects
-  TRANSPORT           // Transportation & mobility
+  LOGEMENT            // Housing
+  TRANSPORT           // Transportation
   ESPACES_VERTS       // Parks & green spaces
   EQUIPEMENTS_PUBLICS // Public facilities
   AMENAGEMENT_URBAIN  // Urban development
-  CULTURE_SPORT       // Cultural & sports facilities
-  ENVIRONNEMENT       // Environmental projects
 }
 
 enum ProjectStatus {
-  PROPOSAL        // Initial proposal phase
-  VOTE_EN_COURS   // Active voting period
-  APPROUVE        // Approved by community vote
-  EN_TRAVAUX      // Under construction/implementation
+  PROPOSAL        // Initial proposal
+  VOTE_EN_COURS   // Active voting
+  APPROUVE        // Approved
+  EN_TRAVAUX      // In progress
   TERMINE         // Completed
-  REJETE          // Rejected after vote
-  SUSPENDU        // Suspended/on hold
 }
 
 enum VoteType {
@@ -190,17 +117,8 @@ enum VoteType {
 }
 
 enum SubmissionStatus {
-  SUBMITTED       // Just submitted by citizen
-  UNDER_REVIEW    // Being reviewed by city officials
-  APPROVED        // Approved to become a project
-  REJECTED        // Rejected by city review
-  NEEDS_REVISION  // Needs changes before approval
-}
-
-enum UpdateType {
-  GENERAL         // General project update
-  STATUS_CHANGE   // Status change notification
-  BUDGET_UPDATE   // Budget information update
-  TIMELINE_UPDATE // Timeline change
-  COMPLETION      // Project completion
+  SUBMITTED       // Just submitted
+  UNDER_REVIEW    // Being reviewed
+  APPROVED        // Approved
+  REJECTED        // Rejected
 }

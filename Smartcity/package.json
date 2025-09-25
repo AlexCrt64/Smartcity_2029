@@ -8,7 +8,15 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "db:migrate": "npx prisma migrate dev",
+    "db:generate": "npx prisma generate",
+    "db:seed": "node prisma/seed.js",
+    "db:studio": "npx prisma studio",
+    "db:reset": "npx prisma migrate reset --force && npm run db:seed",
+    "sync:bordeaux": "node services/syncBordeaux.js",
+    "sync:full": "npm run sync:bordeaux && npm run db:seed",
+    "start:sync": "node -e \"require('./services/syncScheduler').scheduler.start(); console.log('Sync scheduler running... Press Ctrl+C to stop'); setInterval(() => {}, 1000)\""
   },
   "dependencies": {
     "@expo/metro-runtime": "~6.1.2",
