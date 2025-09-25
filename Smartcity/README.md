@@ -48,3 +48,17 @@ Join our community of developers creating universal apps.
 
 - [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
 - [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+
+## 🔐 Variables d'environnement (API Key)
+
+1. Copier le fichier `.env.example` en `.env`.
+2. Remplacer la valeur de `EXPO_PUBLIC_API_KEY` par votre clé.
+3. Ne pas commiter le fichier `.env` (déjà ignoré par `.gitignore`).
+
+Utilisation dans le code :
+
+```ts
+const apiKey = process.env.EXPO_PUBLIC_API_KEY; // ou via Constants.expoConfig?.extra?.publicApiKey
+```
+
+Important : Toute variable commençant par `EXPO_PUBLIC_` est intégrée au bundle et donc visible côté client. Pour des secrets sensibles, créer un backend intermédiaire.
