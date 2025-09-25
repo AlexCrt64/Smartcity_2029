@@ -1,4 +1,6 @@
-import { Text, View } from "react-native";
+import { Image, TouchableOpacity, View, } from "react-native";
+import React from "react";
+import { navigate } from "expo-router/build/global-state/routing";
 
 export default function Index() {
   return (
@@ -9,7 +11,9 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <Text>Edit app/index.tsx to edit this screen.</Text>
+    <TouchableOpacity onPress={() => navigate('./Welcome')}>
+      <Image source={require('../assets/images/Logo_Quartier_Libre.png')} />
+    </TouchableOpacity>
     </View>
   );
 }
