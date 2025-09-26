@@ -29,7 +29,7 @@ async function main() {
 
   const admin = await prisma.user.create({
     data: {
-      email: 'admin@mairie-bordeaux.fr',
+      email: 'admin@mairie-bordeaux.fr', 
       name: 'Jean-Pierre Mairie',
       userType: 'ADMIN'
     }

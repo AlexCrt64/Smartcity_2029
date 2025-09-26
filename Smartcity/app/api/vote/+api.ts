@@ -70,8 +70,8 @@ export async function POST(request: Request) {
       where: { projectId }
     });
 
-    const upvotes = votes.filter((v: any) => v.voteType === 'UPVOTE').length;
-    const downvotes = votes.filter((v: any) => v.voteType === 'DOWNVOTE').length;
+  const upvotes = votes.filter((v: any) => v.voteType === 'UPVOTE').length;
+  const downvotes = votes.filter((v: any) => v.voteType === 'DOWNVOTE').length;
 
     return Response.json({
       success: true,
@@ -119,8 +119,8 @@ export async function DELETE(request: Request) {
       where: { projectId }
     });
 
-    const upvotes = votes.filter((v: any) => v.voteType === 'UPVOTE').length;
-    const downvotes = votes.filter((v: any) => v.voteType === 'DOWNVOTE').length;
+  const upvotes = votes.filter((v: any) => v.voteType === 'UPVOTE').length;
+  const downvotes = votes.filter((v: any) => v.voteType === 'DOWNVOTE').length;
 
     return Response.json({
       success: true,
