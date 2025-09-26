@@ -6,7 +6,7 @@ const Profil = () => {
   return (
     <View>
       <View>
-        <TouchableOpacity onPress={() => navigate('./informations_perso.tsx')}>
+        <TouchableOpacity onPress={() => navigate('/informations_perso')}>
             <Text>Mes informations personnelles</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigate('/Legal_Mention')}>
