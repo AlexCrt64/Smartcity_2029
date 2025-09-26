@@ -34,7 +34,7 @@ export async function GET(request: Request) {
     const projectsWithVoteCounts = projects.map((project: any) => {
       const upvotes = project.votes.filter((v: any) => v.voteType === 'UPVOTE').length;
       const downvotes = project.votes.filter((v: any) => v.voteType === 'DOWNVOTE').length;
-      
+
       return {
         ...project,
         voteCount: {

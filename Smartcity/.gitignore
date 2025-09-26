@@ -44,4 +44,5 @@ app-example
 
 /app/generated/prisma
 
-/app/generated/prisma
+# new prisma client output location
+/generated/prisma

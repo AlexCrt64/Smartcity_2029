@@ -6,7 +6,9 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../app/generated/prisma"
+  // Generate Prisma Client outside of the Expo Router `app` folder
+  // to prevent Metro/Expo Router from scanning declaration files as routes
+  output   = "../generated/prisma"
 }
 
 datasource db {

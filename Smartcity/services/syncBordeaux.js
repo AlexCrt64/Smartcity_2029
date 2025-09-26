@@ -1,4 +1,4 @@
-const { PrismaClient } = require('../app/generated/prisma');
+const { PrismaClient } = require('../generated/prisma');
 const prisma = new PrismaClient();
 
 const BORDEAUX_API_ENDPOINTS = {
