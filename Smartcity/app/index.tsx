@@ -14,13 +14,6 @@ export default function Index() {
     <TouchableOpacity onPress={() => navigate('./Welcome')}>
       <Image source={require('../assets/images/Logo_Quartier_Libre.png')} />
     </TouchableOpacity>
-    {/* TODO: Bouton temporaire pour accéder à la page Profil (à supprimer après vos modifs) */}
-    <TouchableOpacity
-      onPress={() => navigate('/Profil')}
-      style={{ marginTop: 24, paddingVertical: 12, paddingHorizontal: 16, backgroundColor: '#4A90E2', borderRadius: 8 }}
-    >
-      <Text style={{ color: 'white', fontWeight: '600' }}>Aller au Profil</Text>
-    </TouchableOpacity>
     </View>
   );
 }
