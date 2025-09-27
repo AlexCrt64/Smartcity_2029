@@ -19,6 +19,7 @@
     "start:sync": "node -e \"require('./services/syncScheduler').scheduler.start(); console.log('Sync scheduler running... Press Ctrl+C to stop'); setInterval(() => {}, 1000)\""
   },
   "dependencies": {
+    "@expo-google-fonts/manrope": "^0.4.2",
     "@expo/metro-runtime": "~6.1.2",
     "@expo/vector-icons": "^15.0.2",
     "@prisma/client": "^6.16.2",

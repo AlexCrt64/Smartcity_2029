@@ -109,11 +109,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#0B0F2F',
     fontWeight: '600',
+    fontFamily: 'Manrope_600SemiBold',
   },
   paragraph: {
     fontSize: 14,
     lineHeight: 22,
     color: '#0B0F2F',
+    fontFamily: 'Manrope_400Regular',
     marginBottom: 14,
   },
 })

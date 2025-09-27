@@ -1,14 +1,16 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from "react-native";
+import { SafeAreaView } from 'react-native-safe-area-context'
 import MapView, { UrlTile } from "react-native-maps";
 import { Ionicons } from "@expo/vector-icons";
-import { navigate } from "expo-router/build/global-state/routing";
+import { useRouter } from "expo-router";
 
 const { width, height } = Dimensions.get("window");
 
 export default function Home() {
+  const router = useRouter();
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container} edges={['top']}>
       <MapView
         style={styles.map}
         initialRegion={{
@@ -30,7 +32,7 @@ export default function Home() {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.iconButton}
-          onPress={() => navigate("/profile")}
+          onPress={() => router.push('/profile')}
         >
           <Ionicons name="person-outline" size={24} color="blue" />
         </TouchableOpacity>
@@ -40,7 +42,7 @@ export default function Home() {
         <Text style={styles.bottomText}>SWIPE UP</Text>
         <Ionicons name="arrow-up-outline" size={20} color="white" />
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -50,7 +52,7 @@ const styles = StyleSheet.create({
 
   topButtons: {
     position: "absolute",
-    top: 50,
+    top: 48,
     width: "100%",
     flexDirection: "row",
     justifyContent: "space-between",
@@ -64,17 +66,17 @@ const styles = StyleSheet.create({
   },
   bottomPanel: {
     position: "absolute",
-    bottom: 0,
+    bottom: 16,
     width: "100%",
     backgroundColor: "#627BFF",
     padding: 15,
     flexDirection: "row",
-    justifyContent: "center",
     alignItems: "center",
   },
   bottomText: {
     color: "white",
-    fontWeight: "bold",
+    fontWeight: "700",
+    fontFamily: 'Manrope_700Bold',
     marginHorizontal: 10,
     fontSize: 16,
   },

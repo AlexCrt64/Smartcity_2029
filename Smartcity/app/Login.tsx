@@ -1,15 +1,17 @@
-import { StyleSheet, Text, View, Button, Image, TextInput, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, Pressable } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import React from 'react'
-import { navigate } from 'expo-router/build/global-state/routing'
+import { useRouter } from 'expo-router'
 import { Entypo } from '@expo/vector-icons'
 import BackSvg from '../assets/images/icon_back.svg'
 import Logo from '../assets/images/Logo_for_login.svg'
 
 const Login = () => {
+  const router = useRouter()
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container} edges={['top']}>
       <View style={styles.headcontainer}>
-        <TouchableOpacity onPress={() => navigate('/welcome')}>
+        <TouchableOpacity onPress={() => router.push('/welcome')}>
           <BackSvg width={25} height={25} style={{ marginBottom: 54 }} />
         </TouchableOpacity>
         <View style={{ marginBottom: 54 }}>
@@ -42,21 +44,21 @@ const Login = () => {
           </Text>
         </View>
       </View>
-      <View style={styles.buttonConnect}>
-        <Button onPress={() => navigate('/home')} title="Connexion" color="#F4F5FF" accessibilityLabel="Bouton pour valider sa connexion" />
-      </View>
+      <Pressable style={styles.buttonConnect} onPress={() => router.push('/home')} accessibilityLabel="Bouton pour valider sa connexion">
+        <Text style={styles.buttonConnectText}>Connexion</Text>
+      </Pressable>
       <View style={styles.nocompteContainer}>
         <Text style={styles.NocompteText}>
           Pas de compte ?
         </Text>
-        <TouchableOpacity onPress={() => navigate('/sign_up')}>
+        <TouchableOpacity onPress={() => router.push('/sign_up')}>
           <Text style={styles.CreatecompteText}>
             Crée un compte !
           </Text>
         </TouchableOpacity>
       </View>
 
-    </View>
+    </SafeAreaView>
   )
 }
 
@@ -82,13 +84,13 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 17,
     fontWeight: 'bold',
-    fontFamily: 'Manrope',
+    fontFamily: 'Manrope_700Bold',
     marginBottom: 20
   },
   Input_title: {
     fontSize: 15,
-    fontFamily: 'Manrope',
-    fontWeight: 'semibold',
+    fontWeight: '600',
+    fontFamily: 'Manrope_600SemiBold',
     marginBottom: 4
   },
   Input_container: {
@@ -117,39 +119,45 @@ const styles = StyleSheet.create({
     marginLeft: 13
   },
   Input_content: {
-    fontFamily: 'Manrope',
     fontSize: 12,
-    fontWeight: 'medium',
+    fontWeight: '500',
+    fontFamily: 'Manrope_500Medium',
     color: '#000000',
     marginLeft: 14
   },
   forgot_password: {
     fontSize: 10,
     color: '#000000',
-    fontFamily: 'Manrope',
+    fontFamily: 'Manrope_400Regular',
     marginBottom: 58
   },
   buttonConnect: {
     backgroundColor: "#36418F",
     borderRadius: 10,
-    fontFamily: 'Manrope',
     marginBottom: 18,
     width: 353,
     height: 56,
     justifyContent: 'center'
   },
+  buttonConnectText: {
+    color: '#F4F5FF',
+    textAlign: 'center',
+    fontSize: 16,
+    fontWeight: '700',
+    fontFamily: 'Manrope_700Bold',
+  },
   nocompteContainer: {
     flexDirection: 'row'
   },
   NocompteText: {
-    fontFamily: 'Manrope',
     fontSize: 14,
-    fontWeight: 'bold'
+    fontWeight: '700',
+    fontFamily: 'Manrope_700Bold'
   },
   CreatecompteText: {
-    fontFamily: 'Manrope',
     fontSize: 14,
-    fontWeight: 'bold',
+    fontWeight: '700',
+    fontFamily: 'Manrope_700Bold',
     color: '#5982CF',
     marginLeft: 2
   }
