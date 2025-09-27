@@ -1,22 +1,22 @@
-import { StyleSheet, Text, View, Button, Image, TextInput, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { navigate } from 'expo-router/build/global-state/routing'
 import { Entypo } from '@expo/vector-icons'
 import BackSvg from '../assets/images/icon_back.svg'
 import Logo from '../assets/images/Logo_for_login.svg'
 
-const Login = () => {
+const SignUp = () => {
   return (
     <View style={styles.container}>
       <View style={styles.headcontainer}>
         <TouchableOpacity onPress={() => navigate('/welcome')}>
-          <BackSvg width={25} height={25} style={{ marginBottom: 54 }} />
+          <BackSvg width={25} height={25} />
         </TouchableOpacity>
-        <View style={{ marginBottom: 54 }}>
+        <View>
           <Logo width={163.5} height={51.35} />
         </View>
         <Text style={styles.title}>
-          Se connecter :
+          Créer un compte :
         </Text>
       </View>
       <View>
@@ -33,13 +33,19 @@ const Login = () => {
           <Text style={styles.Input_title}>
             Mot de passe :
           </Text>
-          <View style={styles.Input_container2}>
+          <View style={styles.Input_container}>
             <Entypo name='lock' size={18} color={'#000000'} style={styles.icon} />
-            <TextInput style={styles.Input_content} placeholder='Saisisser voter mot de passe' />
+            <TextInput style={styles.Input_content} placeholder='Saisisser votre mot de passe' />
           </View>
-          <Text style={styles.forgot_password}>
-            Mot de passe oublié ?
+        </View>
+        <View>
+          <Text style={styles.Input_title}>
+            Confirmation du mot de passe :
           </Text>
+          <View style={styles.Input_container}>
+            <Entypo name='lock' size={18} color={'#000000'} style={styles.icon} />
+            <TextInput style={styles.Input_content} placeholder='Confirmé la saissie de votre mot de passe' />
+          </View>
         </View>
       </View>
       <View style={styles.buttonConnect}>
@@ -47,11 +53,11 @@ const Login = () => {
       </View>
       <View style={styles.nocompteContainer}>
         <Text style={styles.NocompteText}>
-          Pas de compte ?
+          Déjà un compte ?
         </Text>
-        <TouchableOpacity onPress={() => navigate('/sign_up')}>
+        <TouchableOpacity onPress={() => navigate('/login')}>
           <Text style={styles.CreatecompteText}>
-            Crée un compte !
+            Connecte toi !
           </Text>
         </TouchableOpacity>
       </View>
@@ -60,7 +66,7 @@ const Login = () => {
   )
 }
 
-export default Login
+export default SignUp
 
 const styles = StyleSheet.create({
   container: {

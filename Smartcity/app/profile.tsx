@@ -46,7 +46,7 @@ const Profil = () => {
       {/* Informations légales */}
       <Text style={[styles.sectionTitle, { marginTop: 24 }]}>Informations légales</Text>
       <Pressable
-        onPress={() => router.push('/General_condition')}
+        onPress={() => router.push('/general_conditions')}
         style={styles.card}
         android_ripple={{ color: '#E7ECFF' }}
       >
@@ -56,7 +56,7 @@ const Profil = () => {
         <Text style={styles.cardText}>Conditions générales</Text>
       </Pressable>
       <Pressable
-        onPress={() => router.push('/Legal_Mention')}
+        onPress={() => router.push('/legal_mentions')}
         style={styles.card}
         android_ripple={{ color: '#E7ECFF' }}
       >
@@ -66,7 +66,7 @@ const Profil = () => {
         <Text style={styles.cardText}>Mentions légales</Text>
       </Pressable>
       <Pressable
-        onPress={() => router.push('/Privacy_Policy')}
+        onPress={() => router.push('/privacy_policy')}
         style={styles.card}
         android_ripple={{ color: '#E7ECFF' }}
       >
@@ -79,7 +79,7 @@ const Profil = () => {
       {/* Bottom actions */}
       <View style={styles.bottomBlock}>
         <Pressable
-          onPress={() => router.push('/Login')}
+          onPress={() => router.push('/login')}
           style={styles.inlineAction}
           android_ripple={{ color: '#E7ECFF' }}
         >
