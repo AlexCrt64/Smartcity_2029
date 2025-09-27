@@ -1,17 +1,16 @@
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Pressable } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import React from 'react'
-import { useRouter } from 'expo-router'
+import { navigate } from 'expo-router/build/global-state/routing'
 import { Entypo } from '@expo/vector-icons'
 import BackSvg from '../assets/images/icon_back.svg'
 import Logo from '../assets/images/Logo_for_login.svg'
 
 const SignUp = () => {
-  const router = useRouter()
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
       <View style={styles.headcontainer}>
-        <TouchableOpacity onPress={() => router.push('/welcome')}>
+        <TouchableOpacity onPress={() => navigate('/welcome')}>
           <BackSvg width={25} height={25} />
         </TouchableOpacity>
         <View>
@@ -50,14 +49,14 @@ const SignUp = () => {
           </View>
         </View>
       </View>
-      <Pressable style={styles.buttonConnect} onPress={() => router.push('/home')} accessibilityLabel="Bouton pour créer un compte">
-        <Text style={styles.buttonConnectText}>Créer son compte</Text>
+      <Pressable style={styles.buttonConnect} onPress={() => navigate('/home')} accessibilityLabel="Bouton pour valider sa connexion">
+        <Text style={styles.buttonConnectText}>Connexion</Text>
       </Pressable>
       <View style={styles.nocompteContainer}>
         <Text style={styles.NocompteText}>
           Déjà un compte ?
         </Text>
-        <TouchableOpacity onPress={() => router.push('/login')}>
+        <TouchableOpacity onPress={() => navigate('/login')}>
           <Text style={styles.CreatecompteText}>
             Connecte toi !
           </Text>

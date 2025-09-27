@@ -1,10 +1,9 @@
 import { Image, TouchableOpacity, View, Text } from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context'
 import React from "react";
-import { useRouter } from "expo-router";
+import { navigate } from "expo-router/build/global-state/routing";
 
 export default function Index() {
-  const router = useRouter();
   return (
     <SafeAreaView
       style={{
@@ -13,7 +12,7 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <TouchableOpacity onPress={() => router.push('/welcome')}>
+      <TouchableOpacity onPress={() => navigate('./welcome')}>
         <Image source={require('../assets/images/Logo_Quartier_Libre.png')} />
       </TouchableOpacity>
     </SafeAreaView>
