@@ -13,7 +13,6 @@ export default function RootLayout() {
 
   useEffect(() => {
     if (!fontsLoaded) return
-    // Apply Manrope as the default font for Text and TextInput
     const TextAny = RNText as any
     const TextInputAny = RNTextInput as any
 
@@ -40,7 +39,6 @@ export default function RootLayout() {
       <Stack.Screen name="welcome" options={{ headerShown: false }} />
       <Stack.Screen name="login" options={{ headerShown: false }} />
       <Stack.Screen name="sign_up" options={{ headerShown: false }} />
-      {/* Legal / policy pages without Expo header */}
       <Stack.Screen name="general_conditions" options={{ headerShown: false }} />
       <Stack.Screen name="legal_mentions" options={{ headerShown: false }} />
       <Stack.Screen name="privacy_policy" options={{ headerShown: false }} />
