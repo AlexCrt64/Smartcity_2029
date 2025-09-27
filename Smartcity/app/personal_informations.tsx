@@ -1,4 +1,5 @@
 import { ScrollView, StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import React, { useState } from 'react'
 import { Ionicons } from '@expo/vector-icons'
 
@@ -14,77 +15,83 @@ export default function ProfileScreen() {
   const [selectedPhoto, setSelectedPhoto] = useState(profilePhotos[0]);
 
   return (
-    <ScrollView style={styles.container}>
+    <SafeAreaView style={styles.safeArea} edges={['top']}>
+      <ScrollView style={styles.container}>
 
-      <View style={styles.headerCard}>
-        <View style={styles.iconWrapper}>
-          <Ionicons name="star" size={18} color="#fff" />
-        </View>
-        <Text style={styles.headerText}>Mes informations personnelles</Text>
-      </View>
-
-      <View style={styles.card}>
-        <Text style={styles.label}>Nom</Text>
-        <Text style={styles.value}>Test</Text>
-
-        <Text style={styles.label}>Prénom</Text>
-        <Text style={styles.value}>Test</Text>
-
-        <Text style={styles.label}>Date de naissance</Text>
-        <Text style={styles.value}>Test</Text>
-      </View>
-
-      <View style={styles.card}>
-        <Text style={styles.label}>Adresse mail</Text>
-        <Text style={styles.value}>Test</Text>
-
-        <Text style={styles.label}>Numéro de téléphone</Text>
-        <Text style={styles.value}>Test</Text>
-
-        <Text style={styles.label}>Adresse</Text>
-        <Text style={styles.value}>Test</Text>
-      </View>
-
-      {/* Section Photo de profil */}
-      <View style={styles.card}>
-        <Text style={styles.sectionTitle}>Photo de profil</Text>
-        
-        {/* Photo actuellement sélectionnée */}
-        <View style={styles.currentPhotoContainer}>
-          <Image source={selectedPhoto.source} style={styles.currentPhoto} />
-          <Text style={styles.currentPhotoText}>Photo actuelle</Text>
+        <View style={styles.headerCard}>
+          <View style={styles.iconWrapper}>
+            <Ionicons name="star" size={18} color="#fff" />
+          </View>
+          <Text style={styles.headerText}>Mes informations personnelles</Text>
         </View>
 
-        {/* Sélection de nouvelles photos */}
-        <Text style={styles.choosePhotoText}>Choisir une nouvelle photo :</Text>
-        <View style={styles.photoGrid}>
-          {profilePhotos.map((photo) => (
-            <TouchableOpacity
-              key={photo.id}
-              style={[
-                styles.photoOption,
-                selectedPhoto.id === photo.id && styles.selectedPhotoOption
-              ]}
-              onPress={() => setSelectedPhoto(photo)}
-            >
-              <Image source={photo.source} style={styles.photoOptionImage} />
-              {selectedPhoto.id === photo.id && (
-                <View style={styles.selectedIndicator}>
-                  <Ionicons name="checkmark-circle" size={20} color="#4f46e5" />
-                </View>
-              )}
-            </TouchableOpacity>
-          ))}
+        <View style={styles.card}>
+          <Text style={styles.label}>Nom</Text>
+          <Text style={styles.value}>Test</Text>
+
+          <Text style={styles.label}>Prénom</Text>
+          <Text style={styles.value}>Test</Text>
+
+          <Text style={styles.label}>Date de naissance</Text>
+          <Text style={styles.value}>Test</Text>
         </View>
-      </View>
-    </ScrollView>
+
+        <View style={styles.card}>
+          <Text style={styles.label}>Adresse mail</Text>
+          <Text style={styles.value}>Test</Text>
+
+          <Text style={styles.label}>Numéro de téléphone</Text>
+          <Text style={styles.value}>Test</Text>
+
+          <Text style={styles.label}>Adresse</Text>
+          <Text style={styles.value}>Test</Text>
+        </View>
+
+        {/* Section Photo de profil */}
+        <View style={styles.card}>
+          <Text style={styles.sectionTitle}>Photo de profil</Text>
+
+          {/* Photo actuellement sélectionnée */}
+          <View style={styles.currentPhotoContainer}>
+            <Image source={selectedPhoto.source} style={styles.currentPhoto} />
+            <Text style={styles.currentPhotoText}>Photo actuelle</Text>
+          </View>
+
+          {/* Sélection de nouvelles photos */}
+          <Text style={styles.choosePhotoText}>Choisir une nouvelle photo :</Text>
+          <View style={styles.photoGrid}>
+            {profilePhotos.map((photo) => (
+              <TouchableOpacity
+                key={photo.id}
+                style={[
+                  styles.photoOption,
+                  selectedPhoto.id === photo.id && styles.selectedPhotoOption
+                ]}
+                onPress={() => setSelectedPhoto(photo)}
+              >
+                <Image source={photo.source} style={styles.photoOptionImage} />
+                {selectedPhoto.id === photo.id && (
+                  <View style={styles.selectedIndicator}>
+                    <Ionicons name="checkmark-circle" size={20} color="#4f46e5" />
+                  </View>
+                )}
+              </TouchableOpacity>
+            ))}
+          </View>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
+  safeArea: {
     flex: 1,
     backgroundColor: '#f9f9ff',
+  },
+  container: {
+    flex: 1,
+    backgroundColor: 'transparent',
     padding: 16,
   },
   headerCard: {
@@ -95,7 +102,7 @@ const styles = StyleSheet.create({
     padding: 16,
     marginBottom: 35,
     elevation: 2,
-    shadowColor: '#000', 
+    shadowColor: '#000',
     shadowOpacity: 0.1,
     shadowRadius: 6,
     shadowOffset: { width: 0, height: 2 },
@@ -111,6 +118,7 @@ const styles = StyleSheet.create({
   },
   headerText: {
     fontWeight: '600',
+    fontFamily: 'Manrope_600SemiBold',
     fontSize: 16,
   },
   card: {
@@ -127,15 +135,18 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 12,
     color: '#6b7280', 
+    fontFamily: 'Manrope_400Regular',
   },
   value: {
     fontSize: 16,
     fontWeight: '600',
+    fontFamily: 'Manrope_600SemiBold',
     marginBottom: 12,
   },
   sectionTitle: {
     fontSize: 18,
     fontWeight: '700',
+    fontFamily: 'Manrope_700Bold',
     marginBottom: 20,
     color: '#1f2937',
   },

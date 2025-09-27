@@ -1,5 +1,6 @@
 import React from 'react'
 import { Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import { useRouter } from 'expo-router'
 
 // SVG icons (handled by react-native-svg-transformer)
@@ -14,97 +15,107 @@ const Profil = () => {
   const router = useRouter()
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.content}>
-      {/* Header icons */}
-      <View style={styles.headerRow}>
-        <View style={styles.headerIconWrap}>
-          <MailIcon width={20} height={20} />
+    <SafeAreaView style={styles.safeArea} edges={['top']}>
+      <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+        {/* Header icons */}
+        <View style={styles.headerRow}>
+          <View style={styles.headerIconWrap}>
+            <MailIcon width={20} height={20} />
+          </View>
+          <Image
+            source={require('../assets/images/Crown_Logo.png')}
+            style={styles.logo}
+            resizeMode="contain"
+          />
+          <View style={styles.headerIconWrap}>
+            <AccountIcon width={20} height={20} />
+          </View>
         </View>
-        <Image
-          source={require('../assets/images/Crown_Logo.png')}
-          style={styles.logo}
-          resizeMode="contain"
-        />
-        <View style={styles.headerIconWrap}>
-          <AccountIcon width={20} height={20} />
-        </View>
-      </View>
 
-      {/* Mon compte */}
-      <Text style={styles.sectionTitle}>Mon compte</Text>
-      <Pressable
-        onPress={() => router.push('/informations_perso')}
-        style={styles.card}
-        android_ripple={{ color: '#E7ECFF' }}
-      >
-        <View style={styles.cardLeftIcon}>
-          <InfoPersoIcon width={18} height={18} />
-        </View>
-        <Text style={styles.cardText}>Mes informations personnelles</Text>
-      </Pressable>
-
-      {/* Informations légales */}
-      <Text style={[styles.sectionTitle, { marginTop: 24 }]}>Informations légales</Text>
-      <Pressable
-        onPress={() => router.push('/general_conditions')}
-        style={styles.card}
-        android_ripple={{ color: '#E7ECFF' }}
-      >
-        <View style={styles.cardLeftIcon}>
-          <PaperclipIcon width={18} height={18} />
-        </View>
-        <Text style={styles.cardText}>Conditions générales</Text>
-      </Pressable>
-      <Pressable
-        onPress={() => router.push('/legal_mentions')}
-        style={styles.card}
-        android_ripple={{ color: '#E7ECFF' }}
-      >
-        <View style={styles.cardLeftIcon}>
-          <PaperclipIcon width={18} height={18} />
-        </View>
-        <Text style={styles.cardText}>Mentions légales</Text>
-      </Pressable>
-      <Pressable
-        onPress={() => router.push('/privacy_policy')}
-        style={styles.card}
-        android_ripple={{ color: '#E7ECFF' }}
-      >
-        <View style={styles.cardLeftIcon}>
-          <PaperclipIcon width={18} height={18} />
-        </View>
-        <Text style={styles.cardText}>Politique de confidentialité</Text>
-      </Pressable>
-
-      {/* Bottom actions */}
-      <View style={styles.bottomBlock}>
+        {/* Mon compte */}
+        <Text style={styles.sectionTitle}>Mon compte</Text>
         <Pressable
-          onPress={() => router.push('/login')}
-          style={styles.inlineAction}
+          onPress={() => router.push('/personal_informations')}
+          style={styles.card}
           android_ripple={{ color: '#E7ECFF' }}
         >
-          <LogoutIcon width={20} height={20} />
-          <Text style={styles.inlineActionText}>Me déconnecter</Text>
+          <View style={styles.cardLeftIcon}>
+            <InfoPersoIcon width={18} height={18} />
+          </View>
+          <Text style={styles.cardText}>Mes informations personnelles</Text>
         </Pressable>
+
+        {/* Informations légales */}
+        <Text style={[styles.sectionTitle, { marginTop: 24 }]}>Informations légales</Text>
         <Pressable
-          onPress={() => {/* TODO: Confirm and handle account deletion */ }}
-          style={[styles.inlineAction, { marginTop: 12 }]}
+          onPress={() => router.push('/general_conditions')}
+          style={styles.card}
           android_ripple={{ color: '#E7ECFF' }}
         >
-          <DeleteIcon width={20} height={20} />
-          <Text style={styles.inlineActionText}>Supprimer mon compte</Text>
+          <View style={styles.cardLeftIcon}>
+            <PaperclipIcon width={18} height={18} />
+          </View>
+          <Text style={styles.cardText}>Conditions générales</Text>
         </Pressable>
-      </View>
-    </ScrollView>
+        <Pressable
+          onPress={() => router.push('/legal_mentions')}
+          style={styles.card}
+          android_ripple={{ color: '#E7ECFF' }}
+        >
+          <View style={styles.cardLeftIcon}>
+            <PaperclipIcon width={18} height={18} />
+          </View>
+          <Text style={styles.cardText}>Mentions légales</Text>
+        </Pressable>
+        <Pressable
+          onPress={() => router.push('/privacy_policy')}
+          style={styles.card}
+          android_ripple={{ color: '#E7ECFF' }}
+        >
+          <View style={styles.cardLeftIcon}>
+            <PaperclipIcon width={18} height={18} />
+          </View>
+          <Text style={styles.cardText}>Politique de confidentialité</Text>
+        </Pressable>
+
+        {/* Bottom actions */}
+        <View style={styles.bottomBlock}>
+          <Pressable
+            onPress={() => router.push('/login')}
+            style={styles.inlineAction}
+            android_ripple={{ color: '#E7ECFF' }}
+          >
+            <View style={styles.actionIconWrap}>
+              <LogoutIcon width={20} height={20} />
+            </View>
+            <Text style={styles.inlineActionText}>Me déconnecter</Text>
+          </Pressable>
+          <Pressable
+            onPress={() => router.replace('/sign_up')}
+            style={[styles.inlineAction, { marginTop: 20 }]}
+            android_ripple={{ color: '#E7ECFF' }}
+          >
+            <View style={styles.actionIconWrap}>
+              <DeleteIcon width={20} height={20} />
+            </View>
+            <Text style={styles.inlineActionText}>Supprimer mon compte</Text>
+          </Pressable>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   )
 }
 
 export default Profil
 
 const styles = StyleSheet.create({
-  container: {
+  safeArea: {
     flex: 1,
     backgroundColor: '#EEF1FF',
+  },
+  container: {
+    flex: 1,
+    backgroundColor: 'transparent',
   },
   content: {
     padding: 16,
@@ -137,6 +148,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 20,
     fontWeight: '700',
+    fontFamily: 'Manrope_700Bold',
     color: '#0B0F2F',
     marginBottom: 12,
   },
@@ -164,6 +176,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#0B0F2F',
     fontWeight: '600',
+    fontFamily: 'Manrope_600SemiBold',
   },
   bottomBlock: {
     marginTop: 18,
@@ -176,10 +189,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     columnGap: 10,
   },
+  actionIconWrap: {
+    width: 24,
+    height: 24,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   inlineActionText: {
     fontSize: 16,
     color: '#0B0F2F',
     fontWeight: '600',
-    marginLeft: 10,
+    fontFamily: 'Manrope_600SemiBold',
+    marginLeft: 0,
+    lineHeight: 20,
   },
 })
