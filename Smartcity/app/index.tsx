@@ -11,9 +11,9 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-    <TouchableOpacity onPress={() => navigate('./Welcome')}>
-      <Image source={require('../assets/images/Logo_Quartier_Libre.png')} />
-    </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigate('./welcome')}>
+        <Image source={require('../assets/images/Logo_Quartier_Libre.png')} />
+      </TouchableOpacity>
     </View>
   );
 }

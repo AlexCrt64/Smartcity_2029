@@ -30,7 +30,7 @@ export default function Home() {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.iconButton}
-          onPress={() => navigate("/Profil")}
+          onPress={() => navigate("/profile")}
         >
           <Ionicons name="person-outline" size={24} color="blue" />
         </TouchableOpacity>
