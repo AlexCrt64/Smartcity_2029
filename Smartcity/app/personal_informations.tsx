@@ -1,6 +1,6 @@
 import { ScrollView, StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import React, { useState } from 'react'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import { Ionicons } from '@expo/vector-icons'
 
 export default function ProfileScreen() {
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: 'transparent',
+    backgroundColor: '#f9f9ff',
     padding: 16,
   },
   headerCard: {
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 12,
-    color: '#6b7280', 
+    color: '#6b7280',
     fontFamily: 'Manrope_400Regular',
   },
   value: {
@@ -164,10 +164,12 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#6b7280',
     fontWeight: '500',
+    fontFamily: 'Manrope_500Medium',
   },
   choosePhotoText: {
     fontSize: 16,
     fontWeight: '600',
+    fontFamily: 'Manrope_600SemiBold',
     marginBottom: 16,
     color: '#374151',
   },
@@ -202,4 +204,3 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
 })
-

@@ -91,7 +91,7 @@ const Profil = () => {
             <Text style={styles.inlineActionText}>Me déconnecter</Text>
           </Pressable>
           <Pressable
-            onPress={() => router.replace('/sign_up')}
+            onPress={() => {/* TODO: Confirm and handle account deletion */ }}
             style={[styles.inlineAction, { marginTop: 20 }]}
             android_ripple={{ color: '#E7ECFF' }}
           >

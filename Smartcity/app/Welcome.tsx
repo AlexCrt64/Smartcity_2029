@@ -1,10 +1,9 @@
 import { StyleSheet, Text, View, Image, Pressable } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import React from 'react'
-import { useRouter } from 'expo-router'
+import { navigate } from 'expo-router/build/global-state/routing'
 
 const Welcome = () => {
-  const router = useRouter()
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
       <Image source={require('../assets/images/Crown_Logo.png')} style={styles.logo} />
@@ -14,10 +13,10 @@ const Welcome = () => {
       <Text style={styles.content}>
         Et bien plus encore.. Votre aide a son importance, les choses peuvent changer.
       </Text>
-      <Pressable style={styles.buttonConnect} onPress={() => router.push('/login')} accessibilityLabel="Se connecter à son compte">
+      <Pressable style={styles.buttonConnect} onPress={() => navigate('/login')} accessibilityLabel="Se connecter à son compte">
         <Text style={styles.buttonConnectText}>Se connecter</Text>
       </Pressable>
-      <Pressable style={styles.buttonSignUp} onPress={() => router.push('/sign_up')} accessibilityLabel="Bouton pour créer un compte">
+      <Pressable style={styles.buttonSignUp} onPress={() => navigate('/sign_up')} accessibilityLabel="Bouton pour créer un compte">
         <Text style={styles.buttonSignUpText}>Créer un compte</Text>
       </Pressable>
     </SafeAreaView>

@@ -3,12 +3,11 @@ import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from "react-nati
 import { SafeAreaView } from 'react-native-safe-area-context'
 import MapView, { UrlTile } from "react-native-maps";
 import { Ionicons } from "@expo/vector-icons";
-import { useRouter } from "expo-router";
+import { navigate } from "expo-router/build/global-state/routing";
 
 const { width, height } = Dimensions.get("window");
 
 export default function Home() {
-  const router = useRouter();
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
       <MapView
@@ -32,7 +31,7 @@ export default function Home() {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.iconButton}
-          onPress={() => router.push('/profile')}
+          onPress={() => navigate("/profile")}
         >
           <Ionicons name="person-outline" size={24} color="blue" />
         </TouchableOpacity>
@@ -71,6 +70,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#627BFF",
     padding: 15,
     flexDirection: "row",
+    justifyContent: "center",
     alignItems: "center",
   },
   bottomText: {
