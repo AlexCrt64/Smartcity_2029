@@ -1,5 +1,5 @@
 import React from 'react'
-import { Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { Image, Pressable, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useRouter } from 'expo-router'
 
@@ -10,6 +10,7 @@ import InfoPersoIcon from '../assets/images/infos personnelles icon.svg'
 import PaperclipIcon from '../assets/images/trombone account.svg'
 import LogoutIcon from '../assets/images/deconnexion icon.svg'
 import DeleteIcon from '../assets/images/delete account icon.svg'
+import { navigate } from 'expo-router/build/global-state/routing'
 
 const Profil = () => {
   const router = useRouter()
@@ -22,11 +23,13 @@ const Profil = () => {
           <View style={styles.headerIconWrap}>
             <MailIcon width={20} height={20} />
           </View>
+          <TouchableOpacity onPress={() => navigate('/home')}>
           <Image
             source={require('../assets/images/Crown_Logo.png')}
             style={styles.logo}
             resizeMode="contain"
           />
+          </TouchableOpacity>
           <View style={styles.headerIconWrap}>
             <AccountIcon width={20} height={20} />
           </View>
