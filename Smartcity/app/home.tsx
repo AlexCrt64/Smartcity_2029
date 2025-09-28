@@ -37,9 +37,9 @@ export default function Home() {
         </TouchableOpacity>
       </View>
       <View style={styles.bottomPanel}>
-        <Ionicons name="arrow-up-outline" size={20} color="white" />
-        <Text style={styles.bottomText}>SWIPE UP</Text>
-        <Ionicons name="arrow-up-outline" size={20} color="white" />
+        <TouchableOpacity>
+          <Text style={styles.bottomText}>Voir Tous les projets</Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
