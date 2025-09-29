@@ -15,19 +15,17 @@ import MapView, { UrlTile, Marker } from "react-native-maps";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 
-// SVG logo
 import CrownLogo from '../assets/images/Logo_Quartier_Libre_Couronne.svg';
 
 const { width, height } = Dimensions.get("window");
 
-// Project category colors and icons for markers
 const getCategoryColor = (category: string) => {
   switch (category) {
-    case 'ESPACES_VERTS': return '#4CAF50'; // Green for parks
-    case 'TRANSPORT': return '#2196F3'; // Blue for transport
-    case 'LOGEMENT': return '#FF9800'; // Orange for housing
-    case 'EQUIPEMENTS_PUBLICS': return '#9C27B0'; // Purple for public facilities
-    case 'AMENAGEMENT_URBAIN': return '#F44336'; // Red for urban development
+    case 'ESPACES_VERTS': return '#4CAF50'; 
+    case 'TRANSPORT': return '#2196F3'; 
+    case 'LOGEMENT': return '#FF9800'; 
+    case 'EQUIPEMENTS_PUBLICS': return '#9C27B0';
+    case 'AMENAGEMENT_URBAIN': return '#F44336'; 
     default: return '#627BFF';
   }
 };
@@ -45,11 +43,11 @@ const getCategoryIcon = (category: string) => {
 
 const getStatusColor = (status: string) => {
   switch (status) {
-    case 'VOTE_EN_COURS': return '#FF9800'; // Orange for active voting
-    case 'PROPOSAL': return '#2196F3'; // Blue for proposals
-    case 'APPROUVE': return '#4CAF50'; // Green for approved
-    case 'EN_TRAVAUX': return '#FFC107'; // Yellow for in progress
-    case 'TERMINE': return '#9E9E9E'; // Gray for completed
+    case 'VOTE_EN_COURS': return '#FF9800'; 
+    case 'PROPOSAL': return '#2196F3'; 
+    case 'APPROUVE': return '#4CAF50'; 
+    case 'EN_TRAVAUX': return '#FFC107';
+    case 'TERMINE': return '#9E9E9E';
     default: return '#627BFF';
   }
 };
@@ -79,16 +77,14 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<'ALL' | 'CITY' | 'CITIZEN'>('ALL');
 
-  // Filter projects based on current filter
   const filteredProjects = projects.filter(project => {
     if (filter === 'ALL') return true;
     return project.submittedBy === filter;
   });
 
-  // Load projects from API
   useEffect(() => {
     fetchProjects();
-  }, []);  // Add a refresh function that can be called from the router
+  }, []); 
   const refreshProjects = () => {
     fetchProjects();
   };
@@ -129,9 +125,9 @@ export default function Home() {
       <MapView
         style={styles.map}
         initialRegion={{
-          latitude: 44.8378, // Bordeaux center
+          latitude: 44.8378,
           longitude: -0.5792,
-          latitudeDelta: 0.08, // Zoom out a bit to see all projects
+          latitudeDelta: 0.08,
           longitudeDelta: 0.08,
         }}
         showsPointsOfInterest={false}
@@ -348,7 +344,6 @@ const styles = StyleSheet.create({
   container: { flex: 1 },
   map: { flex: 1 },
 
-  // Map markers
   markerContainer: {
     backgroundColor: '#FF9800',
     borderRadius: 20,
@@ -394,7 +389,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 
-  // Top buttons
   topBarContainer: {
     position: "absolute",
     top: 50,
@@ -467,8 +461,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.15,
     shadowRadius: 3.84,
   },
-
-  // Project count indicator
   projectCount: {
     position: 'absolute',
     top: 100,
@@ -483,8 +475,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '600',
   },
-
-  // Floating Action Button
   fabButton: {
     position: 'absolute',
     bottom: 90,
@@ -501,8 +491,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 4.65,
   },
-
-  // Bottom panel
   bottomPanel: {
     position: "absolute",
     bottom: 16,
@@ -529,8 +517,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     flexShrink: 0,
   },
-
-  // MODAL - Profile page inspired styling
   modalOverlay: {
     flex: 1,
     backgroundColor: "rgba(0,0,0,0.4)",
@@ -538,7 +524,7 @@ const styles = StyleSheet.create({
   },
   modalContent: {
     height: height * 0.85,
-    backgroundColor: "#EEF1FF", // Profile page background color
+    backgroundColor: "#EEF1FF",
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     padding: 16,
@@ -569,8 +555,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Manrope_700Bold',
     color: "#0B0F2F",
   },
-
-  // Project cards - Profile page card styling
   projectCard: {
     backgroundColor: '#FFFFFF',
     borderRadius: 14,
@@ -616,13 +600,13 @@ const styles = StyleSheet.create({
     color: "#777",
     lineHeight: 20,
     marginBottom: 12,
-    marginLeft: 44, // Align with project info
+    marginLeft: 44,
   },
   projectFooter: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginLeft: 44, // Align with project info
+    marginLeft: 44,
   },
   projectBudget: {
     fontSize: 14,
@@ -640,13 +624,9 @@ const styles = StyleSheet.create({
     fontFamily: 'Manrope_600SemiBold',
     color: "#627BFF",
   },
-
-  // Legacy styles (keeping for compatibility)
   projectText: {
     fontSize: 16,
   },
-
-  // Filter styles
   filterContainer: {
     flexDirection: 'row',
     paddingHorizontal: 12,
@@ -679,8 +659,6 @@ const styles = StyleSheet.create({
   filterTextActive: {
     color: '#FFFFFF',
   },
-
-  // Submission badge styles
   submissionBadge: {
     paddingHorizontal: 8,
     paddingVertical: 4,

@@ -4,11 +4,9 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { Ionicons } from '@expo/vector-icons'
 import { router } from 'expo-router'
 
-// SVG logos
 import CrownLogo from '../assets/images/Logo_Quartier_Libre_Couronne.svg';
 
 export default function ProfileScreen() {
-  // Photos de profil pré-chargées
   const profilePhotos = [
     { id: 1, component: CrownLogo, name: 'Avatar 1', type: 'svg' },
     { id: 2, source: require('../assets/images/Logo_Quartier_Libre.png'), name: 'Avatar 2', type: 'image' },
@@ -49,24 +47,24 @@ export default function ProfileScreen() {
 
         <View style={styles.card}>
           <Text style={styles.label}>Nom</Text>
-          <Text style={styles.value}>Test</Text>
+          <Text style={styles.value}>Doe</Text>
 
           <Text style={styles.label}>Prénom</Text>
-          <Text style={styles.value}>Test</Text>
+          <Text style={styles.value}>John</Text>
 
           <Text style={styles.label}>Date de naissance</Text>
-          <Text style={styles.value}>Test</Text>
+          <Text style={styles.value}>04/09/2000</Text>
         </View>
 
         <View style={styles.card}>
           <Text style={styles.label}>Adresse mail</Text>
-          <Text style={styles.value}>Test</Text>
+          <Text style={styles.value}>john.doe@gmail.com</Text>
 
           <Text style={styles.label}>Numéro de téléphone</Text>
-          <Text style={styles.value}>Test</Text>
+          <Text style={styles.value}>0683291926</Text>
 
           <Text style={styles.label}>Adresse</Text>
-          <Text style={styles.value}>Test</Text>
+          <Text style={styles.value}>16 Rue Théodore Blanc</Text>
         </View>
 
         {/* Section Photo de profil */}
@@ -122,7 +120,7 @@ export default function ProfileScreen() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#EEF1FF', // Match profile page background
+    backgroundColor: '#EEF1FF', 
   },
   headerRow: {
     flexDirection: 'row',
@@ -156,7 +154,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: '#EEF1FF', // Match profile page background
+    backgroundColor: '#EEF1FF', 
     padding: 16,
   },
   headerCard: {
