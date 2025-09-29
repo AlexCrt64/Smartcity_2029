@@ -1,0 +1,113 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  // Generate Prisma Client outside of the Expo Router `app` folder
+  // to prevent Metro/Expo Router from scanning declaration files as routes
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Project {
+  id          String          @id @default(cuid())
+  title       String
+  description String
+  category    ProjectCategory
+
+  // Location for map display
+  latitude  Float
+  longitude Float
+  location  String? // Human-readable location
+
+  // Project status and submission source
+  status      ProjectStatus  @default(PROPOSAL)
+  submittedBy SubmissionType @default(CITY)
+  budget      Int?
+
+  // Voting period
+  votingStart DateTime?
+  votingEnd   DateTime?
+
+  // Relations - simplified without user authentication
+  votes Vote[]
+
+  createdAt DateTime @default(now())
+
+  @@map("projects")
+}
+
+model Vote {
+  id        String   @id @default(cuid())
+  projectId String
+  voteType  VoteType
+  // Store demo voting session info without real users
+  sessionId String? // For demo purposes only
+  createdAt DateTime @default(now())
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@map("votes")
+}
+
+model IdeaSubmission {
+  id          String          @id @default(cuid())
+  title       String
+  description String
+  category    ProjectCategory
+
+  // Location for citizen proposals
+  latitude  Float
+  longitude Float
+  location  String
+
+  status SubmissionStatus @default(SUBMITTED)
+
+  // Demo submission info without real users
+  submitterName String @default("Citoyen Anonyme")
+
+  createdAt DateTime @default(now())
+
+  @@map("idea_submissions")
+}
+
+// Essential enums only
+enum ProjectCategory {
+  LOGEMENT // Housing
+  TRANSPORT // Transportation
+  ESPACES_VERTS // Parks & green spaces
+  EQUIPEMENTS_PUBLICS // Public facilities
+  AMENAGEMENT_URBAIN // Urban development
+}
+
+enum ProjectStatus {
+  PROPOSAL // Initial proposal
+  VOTE_EN_COURS // Active voting
+  APPROUVE // Approved
+  EN_TRAVAUX // In progress
+  TERMINE // Completed
+}
+
+enum VoteType {
+  UPVOTE
+  DOWNVOTE
+}
+
+enum SubmissionStatus {
+  SUBMITTED // Just submitted
+  UNDER_REVIEW // Being reviewed
+  APPROVED // Approved
+  REJECTED // Rejected
+}
+
+enum SubmissionType {
+  CITY // City-submitted project
+  CITIZEN // Citizen-submitted project
+}
