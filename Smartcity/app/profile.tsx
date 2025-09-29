@@ -73,7 +73,7 @@ const Profil = () => {
           <Text style={styles.cardText}>Mentions légales</Text>
         </Pressable>
         <Pressable
-          onPress={() => router.push('/privacy_policy')}
+          onPress={() => router.push('/Privacy_Policy')}
           style={styles.card}
           android_ripple={{ color: '#E7ECFF' }}
         >
