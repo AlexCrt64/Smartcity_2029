@@ -1,29 +1,29 @@
-import { StyleSheet, Text, View, Image, Pressable } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import React from 'react'
-import { navigate } from 'expo-router/build/global-state/routing'
+import { StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import React, { useEffect } from 'react';
+import { router } from 'expo-router';
+
+// SVG logo
+import CrownLogo from '../assets/images/Logo_Quartier_Libre.svg';
 
 const Welcome = () => {
+  useEffect(() => {
+    // Auto-navigate after 500ms
+    const timer = setTimeout(() => {
+      router.replace('/main');
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
-      <Image source={require('../assets/images/Crown_Logo.png')} style={styles.logo} />
-      <Text style={styles.title}>
-        Explorez votre quartier
-      </Text>
-      <Text style={styles.content}>
-        Et bien plus encore.. Votre aide a son importance, les choses peuvent changer.
-      </Text>
-      <Pressable style={styles.buttonConnect} onPress={() => navigate('/login')} accessibilityLabel="Se connecter à son compte">
-        <Text style={styles.buttonConnectText}>Se connecter</Text>
-      </Pressable>
-      <Pressable style={styles.buttonSignUp} onPress={() => navigate('/sign_up')} accessibilityLabel="Bouton pour créer un compte">
-        <Text style={styles.buttonSignUpText}>Créer un compte</Text>
-      </Pressable>
+      <CrownLogo width={240} height={240} style={styles.logo} />
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default Welcome
+export default Welcome;
 
 const styles = StyleSheet.create({
   container: {
@@ -34,51 +34,5 @@ const styles = StyleSheet.create({
   },
   logo: {
     marginTop: 8,
-    marginBottom: 100
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    fontFamily: 'Manrope_700Bold',
-    marginBottom: 11
-  },
-  content: {
-    fontSize: 17,
-    fontFamily: 'Manrope_400Regular',
-    marginBottom: 55,
-    width: 319,
-    textAlign: 'center'
-  },
-  buttonConnect: {
-    backgroundColor: "#36418F",
-    borderRadius: 10,
-    marginBottom: 18,
-    width: 353,
-    height: 56,
-    justifyContent: 'center'
-  },
-  buttonConnectText: {
-    color: '#FFFFFF',
-    textAlign: 'center',
-    fontSize: 16,
-    fontWeight: '700',
-    fontFamily: 'Manrope_700Bold',
-  },
-  buttonSignUp: {
-    backgroundColor: "#F4F5FF",
-    borderColor: "#DADFFF",
-    borderWidth: 1,
-    borderRadius: 10,
-    width: 353,
-    height: 56,
-    justifyContent: 'center'
-  },
-  buttonSignUpText: {
-    color: '#666FAB',
-    textAlign: 'center',
-    fontSize: 16,
-    fontWeight: '700',
-    fontFamily: 'Manrope_700Bold',
   }
-}
-)
+});

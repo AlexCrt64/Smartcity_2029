@@ -16,19 +16,6 @@ datasource db {
   url      = "file:./dev.db"
 }
 
-model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  name      String
-  userType  UserType @default(CITIZEN)
-  
-  // Relations
-  votes           Vote[]
-  ideaSubmissions IdeaSubmission[]
-  
-  @@map("users")
-}
-
 model Project {
   id          String          @id @default(cuid())
   title       String
@@ -40,15 +27,16 @@ model Project {
   longitude   Float
   location    String? // Human-readable location
   
-  // Project status
+  // Project status and submission source
   status      ProjectStatus   @default(PROPOSAL)
+  submittedBy SubmissionType  @default(CITY)
   budget      Int?
   
   // Voting period
   votingStart DateTime?
   votingEnd   DateTime?
   
-  // Relations
+  // Relations - simplified without user authentication
   votes       Vote[]
   
   createdAt   DateTime @default(now())
@@ -58,21 +46,19 @@ model Project {
 
 model Vote {
   id        String   @id @default(cuid())
-  userId    String
   projectId String
   voteType  VoteType
+  // Store demo voting session info without real users
+  sessionId String?  // For demo purposes only
   createdAt DateTime @default(now())
   
-  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
   
-  @@unique([userId, projectId])
   @@map("votes")
 }
 
 model IdeaSubmission {
   id          String                @id @default(cuid())
-  userId      String
   title       String
   description String
   category    ProjectCategory
@@ -84,7 +70,8 @@ model IdeaSubmission {
   
   status      SubmissionStatus @default(SUBMITTED)
   
-  user        User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  // Demo submission info without real users
+  submitterName String @default("Citoyen Anonyme")
   
   createdAt   DateTime @default(now())
   
@@ -92,11 +79,6 @@ model IdeaSubmission {
 }
 
 // Essential enums only
-enum UserType {
-  CITIZEN
-  ADMIN
-}
-
 enum ProjectCategory {
   LOGEMENT            // Housing
   TRANSPORT           // Transportation
@@ -123,4 +105,9 @@ enum SubmissionStatus {
   UNDER_REVIEW    // Being reviewed
   APPROVED        // Approved
   REJECTED        // Rejected
+}
+
+enum SubmissionType {
+  CITY            // City-submitted project
+  CITIZEN         // Citizen-submitted project
 }

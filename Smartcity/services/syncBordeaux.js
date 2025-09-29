@@ -38,7 +38,7 @@ function mapStatus(apiData) {
   if (status === 'termine' || phase === 'termine') return 'TERMINE';
   if (status === 'approuve' || phase === 'approuve') return 'APPROUVE';
   
-  // Default new projects to voting phase for civic engagement
+  // Default new projects to voting phase for community engagement
   return 'VOTE_EN_COURS';
 }
 

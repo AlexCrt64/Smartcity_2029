@@ -89,13 +89,6 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.UserScalarFieldEnum = {
-  id: 'id',
-  email: 'email',
-  name: 'name',
-  userType: 'userType'
-};
-
 exports.Prisma.ProjectScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -105,6 +98,7 @@ exports.Prisma.ProjectScalarFieldEnum = {
   longitude: 'longitude',
   location: 'location',
   status: 'status',
+  submittedBy: 'submittedBy',
   budget: 'budget',
   votingStart: 'votingStart',
   votingEnd: 'votingEnd',
@@ -113,15 +107,14 @@ exports.Prisma.ProjectScalarFieldEnum = {
 
 exports.Prisma.VoteScalarFieldEnum = {
   id: 'id',
-  userId: 'userId',
   projectId: 'projectId',
   voteType: 'voteType',
+  sessionId: 'sessionId',
   createdAt: 'createdAt'
 };
 
 exports.Prisma.IdeaSubmissionScalarFieldEnum = {
   id: 'id',
-  userId: 'userId',
   title: 'title',
   description: 'description',
   category: 'category',
@@ -129,6 +122,7 @@ exports.Prisma.IdeaSubmissionScalarFieldEnum = {
   longitude: 'longitude',
   location: 'location',
   status: 'status',
+  submitterName: 'submitterName',
   createdAt: 'createdAt'
 };
 
@@ -141,11 +135,6 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
-exports.UserType = exports.$Enums.UserType = {
-  CITIZEN: 'CITIZEN',
-  ADMIN: 'ADMIN'
-};
-
 exports.ProjectCategory = exports.$Enums.ProjectCategory = {
   LOGEMENT: 'LOGEMENT',
   TRANSPORT: 'TRANSPORT',
@@ -174,8 +163,12 @@ exports.SubmissionStatus = exports.$Enums.SubmissionStatus = {
   REJECTED: 'REJECTED'
 };
 
+exports.SubmissionType = exports.$Enums.SubmissionType = {
+  CITY: 'CITY',
+  CITIZEN: 'CITIZEN'
+};
+
 exports.Prisma.ModelName = {
-  User: 'User',
   Project: 'Project',
   Vote: 'Vote',
   IdeaSubmission: 'IdeaSubmission'
@@ -191,7 +184,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\jerem\\OneDrive\\Documents\\GitHub\\Smartcity_2029\\Smartcity\\generated\\prisma",
+      "value": "/Users/admin/Smartcity_2029/Smartcity/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -200,12 +193,12 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "windows",
+        "value": "darwin-arm64",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\jerem\\OneDrive\\Documents\\GitHub\\Smartcity_2029\\Smartcity\\prisma\\schema.prisma",
+    "sourceFilePath": "/Users/admin/Smartcity_2029/Smartcity/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -219,7 +212,6 @@ const config = {
     "db"
   ],
   "activeProvider": "sqlite",
-  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -228,13 +220,13 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  // Generate Prisma Client outside of the Expo Router `app` folder\n  // to prevent Metro/Expo Router from scanning declaration files as routes\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"sqlite\"\n  url      = \"file:./dev.db\"\n}\n\nmodel User {\n  id       String   @id @default(cuid())\n  email    String   @unique\n  name     String\n  userType UserType @default(CITIZEN)\n\n  // Relations\n  votes           Vote[]\n  ideaSubmissions IdeaSubmission[]\n\n  @@map(\"users\")\n}\n\nmodel Project {\n  id          String          @id @default(cuid())\n  title       String\n  description String\n  category    ProjectCategory\n\n  // Location for map display\n  latitude  Float\n  longitude Float\n  location  String? // Human-readable location\n\n  // Project status\n  status ProjectStatus @default(PROPOSAL)\n  budget Int?\n\n  // Voting period\n  votingStart DateTime?\n  votingEnd   DateTime?\n\n  // Relations\n  votes Vote[]\n\n  createdAt DateTime @default(now())\n\n  @@map(\"projects\")\n}\n\nmodel Vote {\n  id        String   @id @default(cuid())\n  userId    String\n  projectId String\n  voteType  VoteType\n  createdAt DateTime @default(now())\n\n  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)\n  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)\n\n  @@unique([userId, projectId])\n  @@map(\"votes\")\n}\n\nmodel IdeaSubmission {\n  id          String          @id @default(cuid())\n  userId      String\n  title       String\n  description String\n  category    ProjectCategory\n\n  // Location for citizen proposals\n  latitude  Float\n  longitude Float\n  location  String\n\n  status SubmissionStatus @default(SUBMITTED)\n\n  user User @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  createdAt DateTime @default(now())\n\n  @@map(\"idea_submissions\")\n}\n\n// Essential enums only\nenum UserType {\n  CITIZEN\n  ADMIN\n}\n\nenum ProjectCategory {\n  LOGEMENT // Housing\n  TRANSPORT // Transportation\n  ESPACES_VERTS // Parks & green spaces\n  EQUIPEMENTS_PUBLICS // Public facilities\n  AMENAGEMENT_URBAIN // Urban development\n}\n\nenum ProjectStatus {\n  PROPOSAL // Initial proposal\n  VOTE_EN_COURS // Active voting\n  APPROUVE // Approved\n  EN_TRAVAUX // In progress\n  TERMINE // Completed\n}\n\nenum VoteType {\n  UPVOTE\n  DOWNVOTE\n}\n\nenum SubmissionStatus {\n  SUBMITTED // Just submitted\n  UNDER_REVIEW // Being reviewed\n  APPROVED // Approved\n  REJECTED // Rejected\n}\n",
-  "inlineSchemaHash": "0f6ae2b84560d3a8de53675d99e9fbf63907f7ff92e9e0c594b1d44efab2ca08",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  // Generate Prisma Client outside of the Expo Router `app` folder\n  // to prevent Metro/Expo Router from scanning declaration files as routes\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"sqlite\"\n  url      = \"file:./dev.db\"\n}\n\nmodel Project {\n  id          String          @id @default(cuid())\n  title       String\n  description String\n  category    ProjectCategory\n\n  // Location for map display\n  latitude  Float\n  longitude Float\n  location  String? // Human-readable location\n\n  // Project status and submission source\n  status      ProjectStatus  @default(PROPOSAL)\n  submittedBy SubmissionType @default(CITY)\n  budget      Int?\n\n  // Voting period\n  votingStart DateTime?\n  votingEnd   DateTime?\n\n  // Relations - simplified without user authentication\n  votes Vote[]\n\n  createdAt DateTime @default(now())\n\n  @@map(\"projects\")\n}\n\nmodel Vote {\n  id        String   @id @default(cuid())\n  projectId String\n  voteType  VoteType\n  // Store demo voting session info without real users\n  sessionId String? // For demo purposes only\n  createdAt DateTime @default(now())\n\n  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)\n\n  @@map(\"votes\")\n}\n\nmodel IdeaSubmission {\n  id          String          @id @default(cuid())\n  title       String\n  description String\n  category    ProjectCategory\n\n  // Location for citizen proposals\n  latitude  Float\n  longitude Float\n  location  String\n\n  status SubmissionStatus @default(SUBMITTED)\n\n  // Demo submission info without real users\n  submitterName String @default(\"Citoyen Anonyme\")\n\n  createdAt DateTime @default(now())\n\n  @@map(\"idea_submissions\")\n}\n\n// Essential enums only\nenum ProjectCategory {\n  LOGEMENT // Housing\n  TRANSPORT // Transportation\n  ESPACES_VERTS // Parks & green spaces\n  EQUIPEMENTS_PUBLICS // Public facilities\n  AMENAGEMENT_URBAIN // Urban development\n}\n\nenum ProjectStatus {\n  PROPOSAL // Initial proposal\n  VOTE_EN_COURS // Active voting\n  APPROUVE // Approved\n  EN_TRAVAUX // In progress\n  TERMINE // Completed\n}\n\nenum VoteType {\n  UPVOTE\n  DOWNVOTE\n}\n\nenum SubmissionStatus {\n  SUBMITTED // Just submitted\n  UNDER_REVIEW // Being reviewed\n  APPROVED // Approved\n  REJECTED // Rejected\n}\n\nenum SubmissionType {\n  CITY // City-submitted project\n  CITIZEN // Citizen-submitted project\n}\n",
+  "inlineSchemaHash": "aed5502e2b3995ec2f34320cdaee54e05b7d8e8ffe76012e4ea71a562baac84b",
   "copyEngine": true
 }
 config.dirname = '/'
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userType\",\"kind\":\"enum\",\"type\":\"UserType\"},{\"name\":\"votes\",\"kind\":\"object\",\"type\":\"Vote\",\"relationName\":\"UserToVote\"},{\"name\":\"ideaSubmissions\",\"kind\":\"object\",\"type\":\"IdeaSubmission\",\"relationName\":\"IdeaSubmissionToUser\"}],\"dbName\":\"users\"},\"Project\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"category\",\"kind\":\"enum\",\"type\":\"ProjectCategory\"},{\"name\":\"latitude\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"longitude\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"location\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"status\",\"kind\":\"enum\",\"type\":\"ProjectStatus\"},{\"name\":\"budget\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"votingStart\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"votingEnd\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"votes\",\"kind\":\"object\",\"type\":\"Vote\",\"relationName\":\"ProjectToVote\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"projects\"},\"Vote\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"projectId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"voteType\",\"kind\":\"enum\",\"type\":\"VoteType\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"UserToVote\"},{\"name\":\"project\",\"kind\":\"object\",\"type\":\"Project\",\"relationName\":\"ProjectToVote\"}],\"dbName\":\"votes\"},\"IdeaSubmission\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"category\",\"kind\":\"enum\",\"type\":\"ProjectCategory\"},{\"name\":\"latitude\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"longitude\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"location\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"status\",\"kind\":\"enum\",\"type\":\"SubmissionStatus\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"IdeaSubmissionToUser\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"idea_submissions\"}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"Project\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"category\",\"kind\":\"enum\",\"type\":\"ProjectCategory\"},{\"name\":\"latitude\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"longitude\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"location\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"status\",\"kind\":\"enum\",\"type\":\"ProjectStatus\"},{\"name\":\"submittedBy\",\"kind\":\"enum\",\"type\":\"SubmissionType\"},{\"name\":\"budget\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"votingStart\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"votingEnd\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"votes\",\"kind\":\"object\",\"type\":\"Vote\",\"relationName\":\"ProjectToVote\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"projects\"},\"Vote\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"projectId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"voteType\",\"kind\":\"enum\",\"type\":\"VoteType\"},{\"name\":\"sessionId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"project\",\"kind\":\"object\",\"type\":\"Project\",\"relationName\":\"ProjectToVote\"}],\"dbName\":\"votes\"},\"IdeaSubmission\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"category\",\"kind\":\"enum\",\"type\":\"ProjectCategory\"},{\"name\":\"latitude\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"longitude\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"location\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"status\",\"kind\":\"enum\",\"type\":\"SubmissionStatus\"},{\"name\":\"submitterName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"idea_submissions\"}},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.engineWasm = {
   getRuntime: async () => require('./query_engine_bg.js'),

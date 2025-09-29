@@ -1,35 +1,37 @@
 import React from 'react'
-import { Image, Pressable, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Image, Pressable, ScrollView, StyleSheet, Text, TouchableOpacity, View, StatusBar } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useRouter } from 'expo-router'
+import { Ionicons } from '@expo/vector-icons'
 
 // SVG icons (handled by react-native-svg-transformer)
-import MailIcon from '../assets/images/mail icon.svg'
 import AccountIcon from '../assets/images/account icon.svg'
 import InfoPersoIcon from '../assets/images/infos personnelles icon.svg'
 import PaperclipIcon from '../assets/images/trombone account.svg'
 import LogoutIcon from '../assets/images/deconnexion icon.svg'
 import DeleteIcon from '../assets/images/delete account icon.svg'
-import { navigate } from 'expo-router/build/global-state/routing'
 
 const Profil = () => {
   const router = useRouter()
 
   return (
-    <SafeAreaView style={styles.safeArea} edges={['top']}>
+    <>
+      <StatusBar 
+        barStyle="dark-content" 
+        backgroundColor="#EEF1FF" 
+        translucent={false} 
+      />
+      <SafeAreaView style={styles.safeArea} edges={['top']}>
       <ScrollView style={styles.container} contentContainerStyle={styles.content}>
-        {/* Header icons */}
+        {/* Header with back button */}
         <View style={styles.headerRow}>
-          <View style={styles.headerIconWrap}>
-            <MailIcon width={20} height={20} />
-          </View>
-          <TouchableOpacity onPress={() => navigate('/home')}>
-          <Image
-            source={require('../assets/images/Crown_Logo.png')}
-            style={styles.logo}
-            resizeMode="contain"
-          />
+          <TouchableOpacity 
+            style={styles.backButton}
+            onPress={() => router.push('/home')}
+          >
+            <Ionicons name="arrow-back" size={24} color="#627BFF" />
           </TouchableOpacity>
+          <Text style={styles.pageTitle}>Profil</Text>
           <View style={styles.headerIconWrap}>
             <AccountIcon width={20} height={20} />
           </View>
@@ -71,7 +73,7 @@ const Profil = () => {
           <Text style={styles.cardText}>Mentions légales</Text>
         </Pressable>
         <Pressable
-          onPress={() => router.push('/privacy_policy')}
+          onPress={() => router.push('/Privacy_Policy')}
           style={styles.card}
           android_ripple={{ color: '#E7ECFF' }}
         >
@@ -105,7 +107,8 @@ const Profil = () => {
           </Pressable>
         </View>
       </ScrollView>
-    </SafeAreaView>
+      </SafeAreaView>
+    </>
   )
 }
 
@@ -131,7 +134,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 20,
   },
-  headerIconWrap: {
+  backButton: {
     width: 40,
     height: 40,
     borderRadius: 20,
@@ -144,9 +147,24 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     elevation: 1,
   },
-  logo: {
+  pageTitle: {
+    fontSize: 20,
+    fontWeight: '700',
+    fontFamily: 'Manrope_700Bold',
+    color: '#0B0F2F',
+  },
+  headerIconWrap: {
     width: 40,
-    height: 28,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: '#FFFFFF',
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOpacity: 0.05,
+    shadowRadius: 6,
+    shadowOffset: { width: 0, height: 2 },
+    elevation: 1,
   },
   sectionTitle: {
     fontSize: 20,

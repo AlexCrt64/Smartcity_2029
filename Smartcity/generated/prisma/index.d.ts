@@ -14,11 +14,6 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
 
 
 /**
- * Model User
- * 
- */
-export type User = $Result.DefaultSelection<Prisma.$UserPayload>
-/**
  * Model Project
  * 
  */
@@ -38,15 +33,7 @@ export type IdeaSubmission = $Result.DefaultSelection<Prisma.$IdeaSubmissionPayl
  * Enums
  */
 export namespace $Enums {
-  export const UserType: {
-  CITIZEN: 'CITIZEN',
-  ADMIN: 'ADMIN'
-};
-
-export type UserType = (typeof UserType)[keyof typeof UserType]
-
-
-export const ProjectCategory: {
+  export const ProjectCategory: {
   LOGEMENT: 'LOGEMENT',
   TRANSPORT: 'TRANSPORT',
   ESPACES_VERTS: 'ESPACES_VERTS',
@@ -85,11 +72,15 @@ export const SubmissionStatus: {
 
 export type SubmissionStatus = (typeof SubmissionStatus)[keyof typeof SubmissionStatus]
 
+
+export const SubmissionType: {
+  CITY: 'CITY',
+  CITIZEN: 'CITIZEN'
+};
+
+export type SubmissionType = (typeof SubmissionType)[keyof typeof SubmissionType]
+
 }
-
-export type UserType = $Enums.UserType
-
-export const UserType: typeof $Enums.UserType
 
 export type ProjectCategory = $Enums.ProjectCategory
 
@@ -107,6 +98,10 @@ export type SubmissionStatus = $Enums.SubmissionStatus
 
 export const SubmissionStatus: typeof $Enums.SubmissionStatus
 
+export type SubmissionType = $Enums.SubmissionType
+
+export const SubmissionType: typeof $Enums.SubmissionType
+
 /**
  * ##  Prisma Client ʲˢ
  *
@@ -114,8 +109,8 @@ export const SubmissionStatus: typeof $Enums.SubmissionStatus
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Users
- * const users = await prisma.user.findMany()
+ * // Fetch zero or more Projects
+ * const projects = await prisma.project.findMany()
  * ```
  *
  *
@@ -135,8 +130,8 @@ export class PrismaClient<
    * @example
    * ```
    * const prisma = new PrismaClient()
-   * // Fetch zero or more Users
-   * const users = await prisma.user.findMany()
+   * // Fetch zero or more Projects
+   * const projects = await prisma.project.findMany()
    * ```
    *
    *
@@ -226,16 +221,6 @@ export class PrismaClient<
   }>>
 
       /**
-   * `prisma.user`: Exposes CRUD operations for the **User** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Users
-    * const users = await prisma.user.findMany()
-    * ```
-    */
-  get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
-
-  /**
    * `prisma.project`: Exposes CRUD operations for the **Project** model.
     * Example usage:
     * ```ts
@@ -704,7 +689,6 @@ export namespace Prisma {
 
 
   export const ModelName: {
-    User: 'User',
     Project: 'Project',
     Vote: 'Vote',
     IdeaSubmission: 'IdeaSubmission'
@@ -726,84 +710,10 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "project" | "vote" | "ideaSubmission"
+      modelProps: "project" | "vote" | "ideaSubmission"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
-      User: {
-        payload: Prisma.$UserPayload<ExtArgs>
-        fields: Prisma.UserFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.UserFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.UserFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserPayload>
-          }
-          findFirst: {
-            args: Prisma.UserFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.UserFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserPayload>
-          }
-          findMany: {
-            args: Prisma.UserFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserPayload>[]
-          }
-          create: {
-            args: Prisma.UserCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserPayload>
-          }
-          createMany: {
-            args: Prisma.UserCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.UserCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserPayload>[]
-          }
-          delete: {
-            args: Prisma.UserDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserPayload>
-          }
-          update: {
-            args: Prisma.UserUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserPayload>
-          }
-          deleteMany: {
-            args: Prisma.UserDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.UserUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.UserUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserPayload>[]
-          }
-          upsert: {
-            args: Prisma.UserUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserPayload>
-          }
-          aggregate: {
-            args: Prisma.UserAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateUser>
-          }
-          groupBy: {
-            args: Prisma.UserGroupByArgs<ExtArgs>
-            result: $Utils.Optional<UserGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.UserCountArgs<ExtArgs>
-            result: $Utils.Optional<UserCountAggregateOutputType> | number
-          }
-        }
-      }
       Project: {
         payload: Prisma.$ProjectPayload<ExtArgs>
         fields: Prisma.ProjectFieldRefs
@@ -1122,7 +1032,6 @@ export namespace Prisma {
     omit?: Prisma.GlobalOmitConfig
   }
   export type GlobalOmitConfig = {
-    user?: UserOmit
     project?: ProjectOmit
     vote?: VoteOmit
     ideaSubmission?: IdeaSubmissionOmit
@@ -1202,46 +1111,6 @@ export namespace Prisma {
 
 
   /**
-   * Count Type UserCountOutputType
-   */
-
-  export type UserCountOutputType = {
-    votes: number
-    ideaSubmissions: number
-  }
-
-  export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    votes?: boolean | UserCountOutputTypeCountVotesArgs
-    ideaSubmissions?: boolean | UserCountOutputTypeCountIdeaSubmissionsArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the UserCountOutputType
-     */
-    select?: UserCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountVotesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: VoteWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountIdeaSubmissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: IdeaSubmissionWhereInput
-  }
-
-
-  /**
    * Count Type ProjectCountOutputType
    */
 
@@ -1277,1089 +1146,6 @@ export namespace Prisma {
    */
 
   /**
-   * Model User
-   */
-
-  export type AggregateUser = {
-    _count: UserCountAggregateOutputType | null
-    _min: UserMinAggregateOutputType | null
-    _max: UserMaxAggregateOutputType | null
-  }
-
-  export type UserMinAggregateOutputType = {
-    id: string | null
-    email: string | null
-    name: string | null
-    userType: $Enums.UserType | null
-  }
-
-  export type UserMaxAggregateOutputType = {
-    id: string | null
-    email: string | null
-    name: string | null
-    userType: $Enums.UserType | null
-  }
-
-  export type UserCountAggregateOutputType = {
-    id: number
-    email: number
-    name: number
-    userType: number
-    _all: number
-  }
-
-
-  export type UserMinAggregateInputType = {
-    id?: true
-    email?: true
-    name?: true
-    userType?: true
-  }
-
-  export type UserMaxAggregateInputType = {
-    id?: true
-    email?: true
-    name?: true
-    userType?: true
-  }
-
-  export type UserCountAggregateInputType = {
-    id?: true
-    email?: true
-    name?: true
-    userType?: true
-    _all?: true
-  }
-
-  export type UserAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which User to aggregate.
-     */
-    where?: UserWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Users to fetch.
-     */
-    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: UserWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Users from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Users.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned Users
-    **/
-    _count?: true | UserCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: UserMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: UserMaxAggregateInputType
-  }
-
-  export type GetUserAggregateType<T extends UserAggregateArgs> = {
-        [P in keyof T & keyof AggregateUser]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateUser[P]>
-      : GetScalarType<T[P], AggregateUser[P]>
-  }
-
-
-
-
-  export type UserGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: UserWhereInput
-    orderBy?: UserOrderByWithAggregationInput | UserOrderByWithAggregationInput[]
-    by: UserScalarFieldEnum[] | UserScalarFieldEnum
-    having?: UserScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: UserCountAggregateInputType | true
-    _min?: UserMinAggregateInputType
-    _max?: UserMaxAggregateInputType
-  }
-
-  export type UserGroupByOutputType = {
-    id: string
-    email: string
-    name: string
-    userType: $Enums.UserType
-    _count: UserCountAggregateOutputType | null
-    _min: UserMinAggregateOutputType | null
-    _max: UserMaxAggregateOutputType | null
-  }
-
-  type GetUserGroupByPayload<T extends UserGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<UserGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof UserGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], UserGroupByOutputType[P]>
-            : GetScalarType<T[P], UserGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type UserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    email?: boolean
-    name?: boolean
-    userType?: boolean
-    votes?: boolean | User$votesArgs<ExtArgs>
-    ideaSubmissions?: boolean | User$ideaSubmissionsArgs<ExtArgs>
-    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["user"]>
-
-  export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    email?: boolean
-    name?: boolean
-    userType?: boolean
-  }, ExtArgs["result"]["user"]>
-
-  export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    email?: boolean
-    name?: boolean
-    userType?: boolean
-  }, ExtArgs["result"]["user"]>
-
-  export type UserSelectScalar = {
-    id?: boolean
-    email?: boolean
-    name?: boolean
-    userType?: boolean
-  }
-
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "name" | "userType", ExtArgs["result"]["user"]>
-  export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    votes?: boolean | User$votesArgs<ExtArgs>
-    ideaSubmissions?: boolean | User$ideaSubmissionsArgs<ExtArgs>
-    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
-  }
-  export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type UserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-
-  export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "User"
-    objects: {
-      votes: Prisma.$VotePayload<ExtArgs>[]
-      ideaSubmissions: Prisma.$IdeaSubmissionPayload<ExtArgs>[]
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      email: string
-      name: string
-      userType: $Enums.UserType
-    }, ExtArgs["result"]["user"]>
-    composites: {}
-  }
-
-  type UserGetPayload<S extends boolean | null | undefined | UserDefaultArgs> = $Result.GetResult<Prisma.$UserPayload, S>
-
-  type UserCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<UserFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: UserCountAggregateInputType | true
-    }
-
-  export interface UserDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['User'], meta: { name: 'User' } }
-    /**
-     * Find zero or one User that matches the filter.
-     * @param {UserFindUniqueArgs} args - Arguments to find a User
-     * @example
-     * // Get one User
-     * const user = await prisma.user.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends UserFindUniqueArgs>(args: SelectSubset<T, UserFindUniqueArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one User that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {UserFindUniqueOrThrowArgs} args - Arguments to find a User
-     * @example
-     * // Get one User
-     * const user = await prisma.user.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends UserFindUniqueOrThrowArgs>(args: SelectSubset<T, UserFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first User that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {UserFindFirstArgs} args - Arguments to find a User
-     * @example
-     * // Get one User
-     * const user = await prisma.user.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends UserFindFirstArgs>(args?: SelectSubset<T, UserFindFirstArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first User that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {UserFindFirstOrThrowArgs} args - Arguments to find a User
-     * @example
-     * // Get one User
-     * const user = await prisma.user.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends UserFindFirstOrThrowArgs>(args?: SelectSubset<T, UserFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Users that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {UserFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Users
-     * const users = await prisma.user.findMany()
-     * 
-     * // Get first 10 Users
-     * const users = await prisma.user.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const userWithIdOnly = await prisma.user.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends UserFindManyArgs>(args?: SelectSubset<T, UserFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a User.
-     * @param {UserCreateArgs} args - Arguments to create a User.
-     * @example
-     * // Create one User
-     * const User = await prisma.user.create({
-     *   data: {
-     *     // ... data to create a User
-     *   }
-     * })
-     * 
-     */
-    create<T extends UserCreateArgs>(args: SelectSubset<T, UserCreateArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many Users.
-     * @param {UserCreateManyArgs} args - Arguments to create many Users.
-     * @example
-     * // Create many Users
-     * const user = await prisma.user.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends UserCreateManyArgs>(args?: SelectSubset<T, UserCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many Users and returns the data saved in the database.
-     * @param {UserCreateManyAndReturnArgs} args - Arguments to create many Users.
-     * @example
-     * // Create many Users
-     * const user = await prisma.user.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many Users and only return the `id`
-     * const userWithIdOnly = await prisma.user.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends UserCreateManyAndReturnArgs>(args?: SelectSubset<T, UserCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a User.
-     * @param {UserDeleteArgs} args - Arguments to delete one User.
-     * @example
-     * // Delete one User
-     * const User = await prisma.user.delete({
-     *   where: {
-     *     // ... filter to delete one User
-     *   }
-     * })
-     * 
-     */
-    delete<T extends UserDeleteArgs>(args: SelectSubset<T, UserDeleteArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one User.
-     * @param {UserUpdateArgs} args - Arguments to update one User.
-     * @example
-     * // Update one User
-     * const user = await prisma.user.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends UserUpdateArgs>(args: SelectSubset<T, UserUpdateArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more Users.
-     * @param {UserDeleteManyArgs} args - Arguments to filter Users to delete.
-     * @example
-     * // Delete a few Users
-     * const { count } = await prisma.user.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends UserDeleteManyArgs>(args?: SelectSubset<T, UserDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Users.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {UserUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Users
-     * const user = await prisma.user.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends UserUpdateManyArgs>(args: SelectSubset<T, UserUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Users and returns the data updated in the database.
-     * @param {UserUpdateManyAndReturnArgs} args - Arguments to update many Users.
-     * @example
-     * // Update many Users
-     * const user = await prisma.user.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more Users and only return the `id`
-     * const userWithIdOnly = await prisma.user.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends UserUpdateManyAndReturnArgs>(args: SelectSubset<T, UserUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one User.
-     * @param {UserUpsertArgs} args - Arguments to update or create a User.
-     * @example
-     * // Update or create a User
-     * const user = await prisma.user.upsert({
-     *   create: {
-     *     // ... data to create a User
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the User we want to update
-     *   }
-     * })
-     */
-    upsert<T extends UserUpsertArgs>(args: SelectSubset<T, UserUpsertArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of Users.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {UserCountArgs} args - Arguments to filter Users to count.
-     * @example
-     * // Count the number of Users
-     * const count = await prisma.user.count({
-     *   where: {
-     *     // ... the filter for the Users we want to count
-     *   }
-     * })
-    **/
-    count<T extends UserCountArgs>(
-      args?: Subset<T, UserCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], UserCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a User.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {UserAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends UserAggregateArgs>(args: Subset<T, UserAggregateArgs>): Prisma.PrismaPromise<GetUserAggregateType<T>>
-
-    /**
-     * Group by User.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {UserGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends UserGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: UserGroupByArgs['orderBy'] }
-        : { orderBy?: UserGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, UserGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the User model
-   */
-  readonly fields: UserFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for User.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    votes<T extends User$votesArgs<ExtArgs> = {}>(args?: Subset<T, User$votesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    ideaSubmissions<T extends User$ideaSubmissionsArgs<ExtArgs> = {}>(args?: Subset<T, User$ideaSubmissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IdeaSubmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the User model
-   */
-  interface UserFieldRefs {
-    readonly id: FieldRef<"User", 'String'>
-    readonly email: FieldRef<"User", 'String'>
-    readonly name: FieldRef<"User", 'String'>
-    readonly userType: FieldRef<"User", 'UserType'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * User findUnique
-   */
-  export type UserFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserInclude<ExtArgs> | null
-    /**
-     * Filter, which User to fetch.
-     */
-    where: UserWhereUniqueInput
-  }
-
-  /**
-   * User findUniqueOrThrow
-   */
-  export type UserFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserInclude<ExtArgs> | null
-    /**
-     * Filter, which User to fetch.
-     */
-    where: UserWhereUniqueInput
-  }
-
-  /**
-   * User findFirst
-   */
-  export type UserFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserInclude<ExtArgs> | null
-    /**
-     * Filter, which User to fetch.
-     */
-    where?: UserWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Users to fetch.
-     */
-    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Users.
-     */
-    cursor?: UserWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Users from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Users.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Users.
-     */
-    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
-  }
-
-  /**
-   * User findFirstOrThrow
-   */
-  export type UserFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserInclude<ExtArgs> | null
-    /**
-     * Filter, which User to fetch.
-     */
-    where?: UserWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Users to fetch.
-     */
-    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Users.
-     */
-    cursor?: UserWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Users from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Users.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Users.
-     */
-    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
-  }
-
-  /**
-   * User findMany
-   */
-  export type UserFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserInclude<ExtArgs> | null
-    /**
-     * Filter, which Users to fetch.
-     */
-    where?: UserWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Users to fetch.
-     */
-    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing Users.
-     */
-    cursor?: UserWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Users from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Users.
-     */
-    skip?: number
-    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
-  }
-
-  /**
-   * User create
-   */
-  export type UserCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserInclude<ExtArgs> | null
-    /**
-     * The data needed to create a User.
-     */
-    data: XOR<UserCreateInput, UserUncheckedCreateInput>
-  }
-
-  /**
-   * User createMany
-   */
-  export type UserCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many Users.
-     */
-    data: UserCreateManyInput | UserCreateManyInput[]
-  }
-
-  /**
-   * User createManyAndReturn
-   */
-  export type UserCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
-    /**
-     * The data used to create many Users.
-     */
-    data: UserCreateManyInput | UserCreateManyInput[]
-  }
-
-  /**
-   * User update
-   */
-  export type UserUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserInclude<ExtArgs> | null
-    /**
-     * The data needed to update a User.
-     */
-    data: XOR<UserUpdateInput, UserUncheckedUpdateInput>
-    /**
-     * Choose, which User to update.
-     */
-    where: UserWhereUniqueInput
-  }
-
-  /**
-   * User updateMany
-   */
-  export type UserUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update Users.
-     */
-    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyInput>
-    /**
-     * Filter which Users to update
-     */
-    where?: UserWhereInput
-    /**
-     * Limit how many Users to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * User updateManyAndReturn
-   */
-  export type UserUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
-    /**
-     * The data used to update Users.
-     */
-    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyInput>
-    /**
-     * Filter which Users to update
-     */
-    where?: UserWhereInput
-    /**
-     * Limit how many Users to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * User upsert
-   */
-  export type UserUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserInclude<ExtArgs> | null
-    /**
-     * The filter to search for the User to update in case it exists.
-     */
-    where: UserWhereUniqueInput
-    /**
-     * In case the User found by the `where` argument doesn't exist, create a new User with this data.
-     */
-    create: XOR<UserCreateInput, UserUncheckedCreateInput>
-    /**
-     * In case the User was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<UserUpdateInput, UserUncheckedUpdateInput>
-  }
-
-  /**
-   * User delete
-   */
-  export type UserDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserInclude<ExtArgs> | null
-    /**
-     * Filter which User to delete.
-     */
-    where: UserWhereUniqueInput
-  }
-
-  /**
-   * User deleteMany
-   */
-  export type UserDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Users to delete
-     */
-    where?: UserWhereInput
-    /**
-     * Limit how many Users to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * User.votes
-   */
-  export type User$votesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Vote
-     */
-    select?: VoteSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Vote
-     */
-    omit?: VoteOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: VoteInclude<ExtArgs> | null
-    where?: VoteWhereInput
-    orderBy?: VoteOrderByWithRelationInput | VoteOrderByWithRelationInput[]
-    cursor?: VoteWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: VoteScalarFieldEnum | VoteScalarFieldEnum[]
-  }
-
-  /**
-   * User.ideaSubmissions
-   */
-  export type User$ideaSubmissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the IdeaSubmission
-     */
-    select?: IdeaSubmissionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the IdeaSubmission
-     */
-    omit?: IdeaSubmissionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: IdeaSubmissionInclude<ExtArgs> | null
-    where?: IdeaSubmissionWhereInput
-    orderBy?: IdeaSubmissionOrderByWithRelationInput | IdeaSubmissionOrderByWithRelationInput[]
-    cursor?: IdeaSubmissionWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: IdeaSubmissionScalarFieldEnum | IdeaSubmissionScalarFieldEnum[]
-  }
-
-  /**
-   * User without action
-   */
-  export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserInclude<ExtArgs> | null
-  }
-
-
-  /**
    * Model Project
    */
 
@@ -2392,6 +1178,7 @@ export namespace Prisma {
     longitude: number | null
     location: string | null
     status: $Enums.ProjectStatus | null
+    submittedBy: $Enums.SubmissionType | null
     budget: number | null
     votingStart: Date | null
     votingEnd: Date | null
@@ -2407,6 +1194,7 @@ export namespace Prisma {
     longitude: number | null
     location: string | null
     status: $Enums.ProjectStatus | null
+    submittedBy: $Enums.SubmissionType | null
     budget: number | null
     votingStart: Date | null
     votingEnd: Date | null
@@ -2422,6 +1210,7 @@ export namespace Prisma {
     longitude: number
     location: number
     status: number
+    submittedBy: number
     budget: number
     votingStart: number
     votingEnd: number
@@ -2451,6 +1240,7 @@ export namespace Prisma {
     longitude?: true
     location?: true
     status?: true
+    submittedBy?: true
     budget?: true
     votingStart?: true
     votingEnd?: true
@@ -2466,6 +1256,7 @@ export namespace Prisma {
     longitude?: true
     location?: true
     status?: true
+    submittedBy?: true
     budget?: true
     votingStart?: true
     votingEnd?: true
@@ -2481,6 +1272,7 @@ export namespace Prisma {
     longitude?: true
     location?: true
     status?: true
+    submittedBy?: true
     budget?: true
     votingStart?: true
     votingEnd?: true
@@ -2583,6 +1375,7 @@ export namespace Prisma {
     longitude: number
     location: string | null
     status: $Enums.ProjectStatus
+    submittedBy: $Enums.SubmissionType
     budget: number | null
     votingStart: Date | null
     votingEnd: Date | null
@@ -2617,6 +1410,7 @@ export namespace Prisma {
     longitude?: boolean
     location?: boolean
     status?: boolean
+    submittedBy?: boolean
     budget?: boolean
     votingStart?: boolean
     votingEnd?: boolean
@@ -2634,6 +1428,7 @@ export namespace Prisma {
     longitude?: boolean
     location?: boolean
     status?: boolean
+    submittedBy?: boolean
     budget?: boolean
     votingStart?: boolean
     votingEnd?: boolean
@@ -2649,6 +1444,7 @@ export namespace Prisma {
     longitude?: boolean
     location?: boolean
     status?: boolean
+    submittedBy?: boolean
     budget?: boolean
     votingStart?: boolean
     votingEnd?: boolean
@@ -2664,13 +1460,14 @@ export namespace Prisma {
     longitude?: boolean
     location?: boolean
     status?: boolean
+    submittedBy?: boolean
     budget?: boolean
     votingStart?: boolean
     votingEnd?: boolean
     createdAt?: boolean
   }
 
-  export type ProjectOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "category" | "latitude" | "longitude" | "location" | "status" | "budget" | "votingStart" | "votingEnd" | "createdAt", ExtArgs["result"]["project"]>
+  export type ProjectOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "category" | "latitude" | "longitude" | "location" | "status" | "submittedBy" | "budget" | "votingStart" | "votingEnd" | "createdAt", ExtArgs["result"]["project"]>
   export type ProjectInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     votes?: boolean | Project$votesArgs<ExtArgs>
     _count?: boolean | ProjectCountOutputTypeDefaultArgs<ExtArgs>
@@ -2692,6 +1489,7 @@ export namespace Prisma {
       longitude: number
       location: string | null
       status: $Enums.ProjectStatus
+      submittedBy: $Enums.SubmissionType
       budget: number | null
       votingStart: Date | null
       votingEnd: Date | null
@@ -3128,6 +1926,7 @@ export namespace Prisma {
     readonly longitude: FieldRef<"Project", 'Float'>
     readonly location: FieldRef<"Project", 'String'>
     readonly status: FieldRef<"Project", 'ProjectStatus'>
+    readonly submittedBy: FieldRef<"Project", 'SubmissionType'>
     readonly budget: FieldRef<"Project", 'Int'>
     readonly votingStart: FieldRef<"Project", 'DateTime'>
     readonly votingEnd: FieldRef<"Project", 'DateTime'>
@@ -3572,25 +2371,25 @@ export namespace Prisma {
 
   export type VoteMinAggregateOutputType = {
     id: string | null
-    userId: string | null
     projectId: string | null
     voteType: $Enums.VoteType | null
+    sessionId: string | null
     createdAt: Date | null
   }
 
   export type VoteMaxAggregateOutputType = {
     id: string | null
-    userId: string | null
     projectId: string | null
     voteType: $Enums.VoteType | null
+    sessionId: string | null
     createdAt: Date | null
   }
 
   export type VoteCountAggregateOutputType = {
     id: number
-    userId: number
     projectId: number
     voteType: number
+    sessionId: number
     createdAt: number
     _all: number
   }
@@ -3598,25 +2397,25 @@ export namespace Prisma {
 
   export type VoteMinAggregateInputType = {
     id?: true
-    userId?: true
     projectId?: true
     voteType?: true
+    sessionId?: true
     createdAt?: true
   }
 
   export type VoteMaxAggregateInputType = {
     id?: true
-    userId?: true
     projectId?: true
     voteType?: true
+    sessionId?: true
     createdAt?: true
   }
 
   export type VoteCountAggregateInputType = {
     id?: true
-    userId?: true
     projectId?: true
     voteType?: true
+    sessionId?: true
     createdAt?: true
     _all?: true
   }
@@ -3695,9 +2494,9 @@ export namespace Prisma {
 
   export type VoteGroupByOutputType = {
     id: string
-    userId: string
     projectId: string
     voteType: $Enums.VoteType
+    sessionId: string | null
     createdAt: Date
     _count: VoteCountAggregateOutputType | null
     _min: VoteMinAggregateOutputType | null
@@ -3720,67 +2519,60 @@ export namespace Prisma {
 
   export type VoteSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    userId?: boolean
     projectId?: boolean
     voteType?: boolean
+    sessionId?: boolean
     createdAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     project?: boolean | ProjectDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["vote"]>
 
   export type VoteSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    userId?: boolean
     projectId?: boolean
     voteType?: boolean
+    sessionId?: boolean
     createdAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     project?: boolean | ProjectDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["vote"]>
 
   export type VoteSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    userId?: boolean
     projectId?: boolean
     voteType?: boolean
+    sessionId?: boolean
     createdAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     project?: boolean | ProjectDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["vote"]>
 
   export type VoteSelectScalar = {
     id?: boolean
-    userId?: boolean
     projectId?: boolean
     voteType?: boolean
+    sessionId?: boolean
     createdAt?: boolean
   }
 
-  export type VoteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "projectId" | "voteType" | "createdAt", ExtArgs["result"]["vote"]>
+  export type VoteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "projectId" | "voteType" | "sessionId" | "createdAt", ExtArgs["result"]["vote"]>
   export type VoteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     project?: boolean | ProjectDefaultArgs<ExtArgs>
   }
   export type VoteIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     project?: boolean | ProjectDefaultArgs<ExtArgs>
   }
   export type VoteIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     project?: boolean | ProjectDefaultArgs<ExtArgs>
   }
 
   export type $VotePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Vote"
     objects: {
-      user: Prisma.$UserPayload<ExtArgs>
       project: Prisma.$ProjectPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      userId: string
       projectId: string
       voteType: $Enums.VoteType
+      sessionId: string | null
       createdAt: Date
     }, ExtArgs["result"]["vote"]>
     composites: {}
@@ -4176,7 +2968,6 @@ export namespace Prisma {
    */
   export interface Prisma__VoteClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     project<T extends ProjectDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProjectDefaultArgs<ExtArgs>>): Prisma__ProjectClient<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -4208,9 +2999,9 @@ export namespace Prisma {
    */
   interface VoteFieldRefs {
     readonly id: FieldRef<"Vote", 'String'>
-    readonly userId: FieldRef<"Vote", 'String'>
     readonly projectId: FieldRef<"Vote", 'String'>
     readonly voteType: FieldRef<"Vote", 'VoteType'>
+    readonly sessionId: FieldRef<"Vote", 'String'>
     readonly createdAt: FieldRef<"Vote", 'DateTime'>
   }
     
@@ -4648,7 +3439,6 @@ export namespace Prisma {
 
   export type IdeaSubmissionMinAggregateOutputType = {
     id: string | null
-    userId: string | null
     title: string | null
     description: string | null
     category: $Enums.ProjectCategory | null
@@ -4656,12 +3446,12 @@ export namespace Prisma {
     longitude: number | null
     location: string | null
     status: $Enums.SubmissionStatus | null
+    submitterName: string | null
     createdAt: Date | null
   }
 
   export type IdeaSubmissionMaxAggregateOutputType = {
     id: string | null
-    userId: string | null
     title: string | null
     description: string | null
     category: $Enums.ProjectCategory | null
@@ -4669,12 +3459,12 @@ export namespace Prisma {
     longitude: number | null
     location: string | null
     status: $Enums.SubmissionStatus | null
+    submitterName: string | null
     createdAt: Date | null
   }
 
   export type IdeaSubmissionCountAggregateOutputType = {
     id: number
-    userId: number
     title: number
     description: number
     category: number
@@ -4682,6 +3472,7 @@ export namespace Prisma {
     longitude: number
     location: number
     status: number
+    submitterName: number
     createdAt: number
     _all: number
   }
@@ -4699,7 +3490,6 @@ export namespace Prisma {
 
   export type IdeaSubmissionMinAggregateInputType = {
     id?: true
-    userId?: true
     title?: true
     description?: true
     category?: true
@@ -4707,12 +3497,12 @@ export namespace Prisma {
     longitude?: true
     location?: true
     status?: true
+    submitterName?: true
     createdAt?: true
   }
 
   export type IdeaSubmissionMaxAggregateInputType = {
     id?: true
-    userId?: true
     title?: true
     description?: true
     category?: true
@@ -4720,12 +3510,12 @@ export namespace Prisma {
     longitude?: true
     location?: true
     status?: true
+    submitterName?: true
     createdAt?: true
   }
 
   export type IdeaSubmissionCountAggregateInputType = {
     id?: true
-    userId?: true
     title?: true
     description?: true
     category?: true
@@ -4733,6 +3523,7 @@ export namespace Prisma {
     longitude?: true
     location?: true
     status?: true
+    submitterName?: true
     createdAt?: true
     _all?: true
   }
@@ -4825,7 +3616,6 @@ export namespace Prisma {
 
   export type IdeaSubmissionGroupByOutputType = {
     id: string
-    userId: string
     title: string
     description: string
     category: $Enums.ProjectCategory
@@ -4833,6 +3623,7 @@ export namespace Prisma {
     longitude: number
     location: string
     status: $Enums.SubmissionStatus
+    submitterName: string
     createdAt: Date
     _count: IdeaSubmissionCountAggregateOutputType | null
     _avg: IdeaSubmissionAvgAggregateOutputType | null
@@ -4857,7 +3648,6 @@ export namespace Prisma {
 
   export type IdeaSubmissionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    userId?: boolean
     title?: boolean
     description?: boolean
     category?: boolean
@@ -4865,13 +3655,12 @@ export namespace Prisma {
     longitude?: boolean
     location?: boolean
     status?: boolean
+    submitterName?: boolean
     createdAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["ideaSubmission"]>
 
   export type IdeaSubmissionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    userId?: boolean
     title?: boolean
     description?: boolean
     category?: boolean
@@ -4879,13 +3668,12 @@ export namespace Prisma {
     longitude?: boolean
     location?: boolean
     status?: boolean
+    submitterName?: boolean
     createdAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["ideaSubmission"]>
 
   export type IdeaSubmissionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    userId?: boolean
     title?: boolean
     description?: boolean
     category?: boolean
@@ -4893,13 +3681,12 @@ export namespace Prisma {
     longitude?: boolean
     location?: boolean
     status?: boolean
+    submitterName?: boolean
     createdAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["ideaSubmission"]>
 
   export type IdeaSubmissionSelectScalar = {
     id?: boolean
-    userId?: boolean
     title?: boolean
     description?: boolean
     category?: boolean
@@ -4907,28 +3694,17 @@ export namespace Prisma {
     longitude?: boolean
     location?: boolean
     status?: boolean
+    submitterName?: boolean
     createdAt?: boolean
   }
 
-  export type IdeaSubmissionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "title" | "description" | "category" | "latitude" | "longitude" | "location" | "status" | "createdAt", ExtArgs["result"]["ideaSubmission"]>
-  export type IdeaSubmissionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }
-  export type IdeaSubmissionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }
-  export type IdeaSubmissionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }
+  export type IdeaSubmissionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "category" | "latitude" | "longitude" | "location" | "status" | "submitterName" | "createdAt", ExtArgs["result"]["ideaSubmission"]>
 
   export type $IdeaSubmissionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "IdeaSubmission"
-    objects: {
-      user: Prisma.$UserPayload<ExtArgs>
-    }
+    objects: {}
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      userId: string
       title: string
       description: string
       category: $Enums.ProjectCategory
@@ -4936,6 +3712,7 @@ export namespace Prisma {
       longitude: number
       location: string
       status: $Enums.SubmissionStatus
+      submitterName: string
       createdAt: Date
     }, ExtArgs["result"]["ideaSubmission"]>
     composites: {}
@@ -5331,7 +4108,6 @@ export namespace Prisma {
    */
   export interface Prisma__IdeaSubmissionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5362,7 +4138,6 @@ export namespace Prisma {
    */
   interface IdeaSubmissionFieldRefs {
     readonly id: FieldRef<"IdeaSubmission", 'String'>
-    readonly userId: FieldRef<"IdeaSubmission", 'String'>
     readonly title: FieldRef<"IdeaSubmission", 'String'>
     readonly description: FieldRef<"IdeaSubmission", 'String'>
     readonly category: FieldRef<"IdeaSubmission", 'ProjectCategory'>
@@ -5370,6 +4145,7 @@ export namespace Prisma {
     readonly longitude: FieldRef<"IdeaSubmission", 'Float'>
     readonly location: FieldRef<"IdeaSubmission", 'String'>
     readonly status: FieldRef<"IdeaSubmission", 'SubmissionStatus'>
+    readonly submitterName: FieldRef<"IdeaSubmission", 'String'>
     readonly createdAt: FieldRef<"IdeaSubmission", 'DateTime'>
   }
     
@@ -5387,10 +4163,6 @@ export namespace Prisma {
      * Omit specific fields from the IdeaSubmission
      */
     omit?: IdeaSubmissionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: IdeaSubmissionInclude<ExtArgs> | null
     /**
      * Filter, which IdeaSubmission to fetch.
      */
@@ -5410,10 +4182,6 @@ export namespace Prisma {
      */
     omit?: IdeaSubmissionOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: IdeaSubmissionInclude<ExtArgs> | null
-    /**
      * Filter, which IdeaSubmission to fetch.
      */
     where: IdeaSubmissionWhereUniqueInput
@@ -5431,10 +4199,6 @@ export namespace Prisma {
      * Omit specific fields from the IdeaSubmission
      */
     omit?: IdeaSubmissionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: IdeaSubmissionInclude<ExtArgs> | null
     /**
      * Filter, which IdeaSubmission to fetch.
      */
@@ -5484,10 +4248,6 @@ export namespace Prisma {
      */
     omit?: IdeaSubmissionOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: IdeaSubmissionInclude<ExtArgs> | null
-    /**
      * Filter, which IdeaSubmission to fetch.
      */
     where?: IdeaSubmissionWhereInput
@@ -5536,10 +4296,6 @@ export namespace Prisma {
      */
     omit?: IdeaSubmissionOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: IdeaSubmissionInclude<ExtArgs> | null
-    /**
      * Filter, which IdeaSubmissions to fetch.
      */
     where?: IdeaSubmissionWhereInput
@@ -5583,10 +4339,6 @@ export namespace Prisma {
      */
     omit?: IdeaSubmissionOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: IdeaSubmissionInclude<ExtArgs> | null
-    /**
      * The data needed to create a IdeaSubmission.
      */
     data: XOR<IdeaSubmissionCreateInput, IdeaSubmissionUncheckedCreateInput>
@@ -5618,10 +4370,6 @@ export namespace Prisma {
      * The data used to create many IdeaSubmissions.
      */
     data: IdeaSubmissionCreateManyInput | IdeaSubmissionCreateManyInput[]
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: IdeaSubmissionIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -5636,10 +4384,6 @@ export namespace Prisma {
      * Omit specific fields from the IdeaSubmission
      */
     omit?: IdeaSubmissionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: IdeaSubmissionInclude<ExtArgs> | null
     /**
      * The data needed to update a IdeaSubmission.
      */
@@ -5692,10 +4436,6 @@ export namespace Prisma {
      * Limit how many IdeaSubmissions to update.
      */
     limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: IdeaSubmissionIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -5710,10 +4450,6 @@ export namespace Prisma {
      * Omit specific fields from the IdeaSubmission
      */
     omit?: IdeaSubmissionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: IdeaSubmissionInclude<ExtArgs> | null
     /**
      * The filter to search for the IdeaSubmission to update in case it exists.
      */
@@ -5740,10 +4476,6 @@ export namespace Prisma {
      * Omit specific fields from the IdeaSubmission
      */
     omit?: IdeaSubmissionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: IdeaSubmissionInclude<ExtArgs> | null
     /**
      * Filter which IdeaSubmission to delete.
      */
@@ -5776,10 +4508,6 @@ export namespace Prisma {
      * Omit specific fields from the IdeaSubmission
      */
     omit?: IdeaSubmissionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: IdeaSubmissionInclude<ExtArgs> | null
   }
 
 
@@ -5794,16 +4522,6 @@ export namespace Prisma {
   export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
-  export const UserScalarFieldEnum: {
-    id: 'id',
-    email: 'email',
-    name: 'name',
-    userType: 'userType'
-  };
-
-  export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
-
-
   export const ProjectScalarFieldEnum: {
     id: 'id',
     title: 'title',
@@ -5813,6 +4531,7 @@ export namespace Prisma {
     longitude: 'longitude',
     location: 'location',
     status: 'status',
+    submittedBy: 'submittedBy',
     budget: 'budget',
     votingStart: 'votingStart',
     votingEnd: 'votingEnd',
@@ -5824,9 +4543,9 @@ export namespace Prisma {
 
   export const VoteScalarFieldEnum: {
     id: 'id',
-    userId: 'userId',
     projectId: 'projectId',
     voteType: 'voteType',
+    sessionId: 'sessionId',
     createdAt: 'createdAt'
   };
 
@@ -5835,7 +4554,6 @@ export namespace Prisma {
 
   export const IdeaSubmissionScalarFieldEnum: {
     id: 'id',
-    userId: 'userId',
     title: 'title',
     description: 'description',
     category: 'category',
@@ -5843,6 +4561,7 @@ export namespace Prisma {
     longitude: 'longitude',
     location: 'location',
     status: 'status',
+    submitterName: 'submitterName',
     createdAt: 'createdAt'
   };
 
@@ -5878,13 +4597,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'UserType'
-   */
-  export type EnumUserTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserType'>
-    
-
-
-  /**
    * Reference to a field of type 'ProjectCategory'
    */
   export type EnumProjectCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProjectCategory'>
@@ -5902,6 +4614,13 @@ export namespace Prisma {
    * Reference to a field of type 'ProjectStatus'
    */
   export type EnumProjectStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProjectStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'SubmissionType'
+   */
+  export type EnumSubmissionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SubmissionType'>
     
 
 
@@ -5936,59 +4655,6 @@ export namespace Prisma {
    */
 
 
-  export type UserWhereInput = {
-    AND?: UserWhereInput | UserWhereInput[]
-    OR?: UserWhereInput[]
-    NOT?: UserWhereInput | UserWhereInput[]
-    id?: StringFilter<"User"> | string
-    email?: StringFilter<"User"> | string
-    name?: StringFilter<"User"> | string
-    userType?: EnumUserTypeFilter<"User"> | $Enums.UserType
-    votes?: VoteListRelationFilter
-    ideaSubmissions?: IdeaSubmissionListRelationFilter
-  }
-
-  export type UserOrderByWithRelationInput = {
-    id?: SortOrder
-    email?: SortOrder
-    name?: SortOrder
-    userType?: SortOrder
-    votes?: VoteOrderByRelationAggregateInput
-    ideaSubmissions?: IdeaSubmissionOrderByRelationAggregateInput
-  }
-
-  export type UserWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    email?: string
-    AND?: UserWhereInput | UserWhereInput[]
-    OR?: UserWhereInput[]
-    NOT?: UserWhereInput | UserWhereInput[]
-    name?: StringFilter<"User"> | string
-    userType?: EnumUserTypeFilter<"User"> | $Enums.UserType
-    votes?: VoteListRelationFilter
-    ideaSubmissions?: IdeaSubmissionListRelationFilter
-  }, "id" | "email">
-
-  export type UserOrderByWithAggregationInput = {
-    id?: SortOrder
-    email?: SortOrder
-    name?: SortOrder
-    userType?: SortOrder
-    _count?: UserCountOrderByAggregateInput
-    _max?: UserMaxOrderByAggregateInput
-    _min?: UserMinOrderByAggregateInput
-  }
-
-  export type UserScalarWhereWithAggregatesInput = {
-    AND?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
-    OR?: UserScalarWhereWithAggregatesInput[]
-    NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"User"> | string
-    email?: StringWithAggregatesFilter<"User"> | string
-    name?: StringWithAggregatesFilter<"User"> | string
-    userType?: EnumUserTypeWithAggregatesFilter<"User"> | $Enums.UserType
-  }
-
   export type ProjectWhereInput = {
     AND?: ProjectWhereInput | ProjectWhereInput[]
     OR?: ProjectWhereInput[]
@@ -6001,6 +4667,7 @@ export namespace Prisma {
     longitude?: FloatFilter<"Project"> | number
     location?: StringNullableFilter<"Project"> | string | null
     status?: EnumProjectStatusFilter<"Project"> | $Enums.ProjectStatus
+    submittedBy?: EnumSubmissionTypeFilter<"Project"> | $Enums.SubmissionType
     budget?: IntNullableFilter<"Project"> | number | null
     votingStart?: DateTimeNullableFilter<"Project"> | Date | string | null
     votingEnd?: DateTimeNullableFilter<"Project"> | Date | string | null
@@ -6017,6 +4684,7 @@ export namespace Prisma {
     longitude?: SortOrder
     location?: SortOrderInput | SortOrder
     status?: SortOrder
+    submittedBy?: SortOrder
     budget?: SortOrderInput | SortOrder
     votingStart?: SortOrderInput | SortOrder
     votingEnd?: SortOrderInput | SortOrder
@@ -6036,6 +4704,7 @@ export namespace Prisma {
     longitude?: FloatFilter<"Project"> | number
     location?: StringNullableFilter<"Project"> | string | null
     status?: EnumProjectStatusFilter<"Project"> | $Enums.ProjectStatus
+    submittedBy?: EnumSubmissionTypeFilter<"Project"> | $Enums.SubmissionType
     budget?: IntNullableFilter<"Project"> | number | null
     votingStart?: DateTimeNullableFilter<"Project"> | Date | string | null
     votingEnd?: DateTimeNullableFilter<"Project"> | Date | string | null
@@ -6052,6 +4721,7 @@ export namespace Prisma {
     longitude?: SortOrder
     location?: SortOrderInput | SortOrder
     status?: SortOrder
+    submittedBy?: SortOrder
     budget?: SortOrderInput | SortOrder
     votingStart?: SortOrderInput | SortOrder
     votingEnd?: SortOrderInput | SortOrder
@@ -6075,6 +4745,7 @@ export namespace Prisma {
     longitude?: FloatWithAggregatesFilter<"Project"> | number
     location?: StringNullableWithAggregatesFilter<"Project"> | string | null
     status?: EnumProjectStatusWithAggregatesFilter<"Project"> | $Enums.ProjectStatus
+    submittedBy?: EnumSubmissionTypeWithAggregatesFilter<"Project"> | $Enums.SubmissionType
     budget?: IntNullableWithAggregatesFilter<"Project"> | number | null
     votingStart?: DateTimeNullableWithAggregatesFilter<"Project"> | Date | string | null
     votingEnd?: DateTimeNullableWithAggregatesFilter<"Project"> | Date | string | null
@@ -6086,43 +4757,39 @@ export namespace Prisma {
     OR?: VoteWhereInput[]
     NOT?: VoteWhereInput | VoteWhereInput[]
     id?: StringFilter<"Vote"> | string
-    userId?: StringFilter<"Vote"> | string
     projectId?: StringFilter<"Vote"> | string
     voteType?: EnumVoteTypeFilter<"Vote"> | $Enums.VoteType
+    sessionId?: StringNullableFilter<"Vote"> | string | null
     createdAt?: DateTimeFilter<"Vote"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     project?: XOR<ProjectScalarRelationFilter, ProjectWhereInput>
   }
 
   export type VoteOrderByWithRelationInput = {
     id?: SortOrder
-    userId?: SortOrder
     projectId?: SortOrder
     voteType?: SortOrder
+    sessionId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
-    user?: UserOrderByWithRelationInput
     project?: ProjectOrderByWithRelationInput
   }
 
   export type VoteWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    userId_projectId?: VoteUserIdProjectIdCompoundUniqueInput
     AND?: VoteWhereInput | VoteWhereInput[]
     OR?: VoteWhereInput[]
     NOT?: VoteWhereInput | VoteWhereInput[]
-    userId?: StringFilter<"Vote"> | string
     projectId?: StringFilter<"Vote"> | string
     voteType?: EnumVoteTypeFilter<"Vote"> | $Enums.VoteType
+    sessionId?: StringNullableFilter<"Vote"> | string | null
     createdAt?: DateTimeFilter<"Vote"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     project?: XOR<ProjectScalarRelationFilter, ProjectWhereInput>
-  }, "id" | "userId_projectId">
+  }, "id">
 
   export type VoteOrderByWithAggregationInput = {
     id?: SortOrder
-    userId?: SortOrder
     projectId?: SortOrder
     voteType?: SortOrder
+    sessionId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     _count?: VoteCountOrderByAggregateInput
     _max?: VoteMaxOrderByAggregateInput
@@ -6134,9 +4801,9 @@ export namespace Prisma {
     OR?: VoteScalarWhereWithAggregatesInput[]
     NOT?: VoteScalarWhereWithAggregatesInput | VoteScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Vote"> | string
-    userId?: StringWithAggregatesFilter<"Vote"> | string
     projectId?: StringWithAggregatesFilter<"Vote"> | string
     voteType?: EnumVoteTypeWithAggregatesFilter<"Vote"> | $Enums.VoteType
+    sessionId?: StringNullableWithAggregatesFilter<"Vote"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Vote"> | Date | string
   }
 
@@ -6145,7 +4812,6 @@ export namespace Prisma {
     OR?: IdeaSubmissionWhereInput[]
     NOT?: IdeaSubmissionWhereInput | IdeaSubmissionWhereInput[]
     id?: StringFilter<"IdeaSubmission"> | string
-    userId?: StringFilter<"IdeaSubmission"> | string
     title?: StringFilter<"IdeaSubmission"> | string
     description?: StringFilter<"IdeaSubmission"> | string
     category?: EnumProjectCategoryFilter<"IdeaSubmission"> | $Enums.ProjectCategory
@@ -6153,13 +4819,12 @@ export namespace Prisma {
     longitude?: FloatFilter<"IdeaSubmission"> | number
     location?: StringFilter<"IdeaSubmission"> | string
     status?: EnumSubmissionStatusFilter<"IdeaSubmission"> | $Enums.SubmissionStatus
+    submitterName?: StringFilter<"IdeaSubmission"> | string
     createdAt?: DateTimeFilter<"IdeaSubmission"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type IdeaSubmissionOrderByWithRelationInput = {
     id?: SortOrder
-    userId?: SortOrder
     title?: SortOrder
     description?: SortOrder
     category?: SortOrder
@@ -6167,8 +4832,8 @@ export namespace Prisma {
     longitude?: SortOrder
     location?: SortOrder
     status?: SortOrder
+    submitterName?: SortOrder
     createdAt?: SortOrder
-    user?: UserOrderByWithRelationInput
   }
 
   export type IdeaSubmissionWhereUniqueInput = Prisma.AtLeast<{
@@ -6176,7 +4841,6 @@ export namespace Prisma {
     AND?: IdeaSubmissionWhereInput | IdeaSubmissionWhereInput[]
     OR?: IdeaSubmissionWhereInput[]
     NOT?: IdeaSubmissionWhereInput | IdeaSubmissionWhereInput[]
-    userId?: StringFilter<"IdeaSubmission"> | string
     title?: StringFilter<"IdeaSubmission"> | string
     description?: StringFilter<"IdeaSubmission"> | string
     category?: EnumProjectCategoryFilter<"IdeaSubmission"> | $Enums.ProjectCategory
@@ -6184,13 +4848,12 @@ export namespace Prisma {
     longitude?: FloatFilter<"IdeaSubmission"> | number
     location?: StringFilter<"IdeaSubmission"> | string
     status?: EnumSubmissionStatusFilter<"IdeaSubmission"> | $Enums.SubmissionStatus
+    submitterName?: StringFilter<"IdeaSubmission"> | string
     createdAt?: DateTimeFilter<"IdeaSubmission"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id">
 
   export type IdeaSubmissionOrderByWithAggregationInput = {
     id?: SortOrder
-    userId?: SortOrder
     title?: SortOrder
     description?: SortOrder
     category?: SortOrder
@@ -6198,6 +4861,7 @@ export namespace Prisma {
     longitude?: SortOrder
     location?: SortOrder
     status?: SortOrder
+    submitterName?: SortOrder
     createdAt?: SortOrder
     _count?: IdeaSubmissionCountOrderByAggregateInput
     _avg?: IdeaSubmissionAvgOrderByAggregateInput
@@ -6211,7 +4875,6 @@ export namespace Prisma {
     OR?: IdeaSubmissionScalarWhereWithAggregatesInput[]
     NOT?: IdeaSubmissionScalarWhereWithAggregatesInput | IdeaSubmissionScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"IdeaSubmission"> | string
-    userId?: StringWithAggregatesFilter<"IdeaSubmission"> | string
     title?: StringWithAggregatesFilter<"IdeaSubmission"> | string
     description?: StringWithAggregatesFilter<"IdeaSubmission"> | string
     category?: EnumProjectCategoryWithAggregatesFilter<"IdeaSubmission"> | $Enums.ProjectCategory
@@ -6219,64 +4882,8 @@ export namespace Prisma {
     longitude?: FloatWithAggregatesFilter<"IdeaSubmission"> | number
     location?: StringWithAggregatesFilter<"IdeaSubmission"> | string
     status?: EnumSubmissionStatusWithAggregatesFilter<"IdeaSubmission"> | $Enums.SubmissionStatus
+    submitterName?: StringWithAggregatesFilter<"IdeaSubmission"> | string
     createdAt?: DateTimeWithAggregatesFilter<"IdeaSubmission"> | Date | string
-  }
-
-  export type UserCreateInput = {
-    id?: string
-    email: string
-    name: string
-    userType?: $Enums.UserType
-    votes?: VoteCreateNestedManyWithoutUserInput
-    ideaSubmissions?: IdeaSubmissionCreateNestedManyWithoutUserInput
-  }
-
-  export type UserUncheckedCreateInput = {
-    id?: string
-    email: string
-    name: string
-    userType?: $Enums.UserType
-    votes?: VoteUncheckedCreateNestedManyWithoutUserInput
-    ideaSubmissions?: IdeaSubmissionUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type UserUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
-    votes?: VoteUpdateManyWithoutUserNestedInput
-    ideaSubmissions?: IdeaSubmissionUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
-    votes?: VoteUncheckedUpdateManyWithoutUserNestedInput
-    ideaSubmissions?: IdeaSubmissionUncheckedUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserCreateManyInput = {
-    id?: string
-    email: string
-    name: string
-    userType?: $Enums.UserType
-  }
-
-  export type UserUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
-  }
-
-  export type UserUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
   }
 
   export type ProjectCreateInput = {
@@ -6288,6 +4895,7 @@ export namespace Prisma {
     longitude: number
     location?: string | null
     status?: $Enums.ProjectStatus
+    submittedBy?: $Enums.SubmissionType
     budget?: number | null
     votingStart?: Date | string | null
     votingEnd?: Date | string | null
@@ -6304,6 +4912,7 @@ export namespace Prisma {
     longitude: number
     location?: string | null
     status?: $Enums.ProjectStatus
+    submittedBy?: $Enums.SubmissionType
     budget?: number | null
     votingStart?: Date | string | null
     votingEnd?: Date | string | null
@@ -6320,6 +4929,7 @@ export namespace Prisma {
     longitude?: FloatFieldUpdateOperationsInput | number
     location?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+    submittedBy?: EnumSubmissionTypeFieldUpdateOperationsInput | $Enums.SubmissionType
     budget?: NullableIntFieldUpdateOperationsInput | number | null
     votingStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     votingEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6336,6 +4946,7 @@ export namespace Prisma {
     longitude?: FloatFieldUpdateOperationsInput | number
     location?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+    submittedBy?: EnumSubmissionTypeFieldUpdateOperationsInput | $Enums.SubmissionType
     budget?: NullableIntFieldUpdateOperationsInput | number | null
     votingStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     votingEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6352,6 +4963,7 @@ export namespace Prisma {
     longitude: number
     location?: string | null
     status?: $Enums.ProjectStatus
+    submittedBy?: $Enums.SubmissionType
     budget?: number | null
     votingStart?: Date | string | null
     votingEnd?: Date | string | null
@@ -6367,6 +4979,7 @@ export namespace Prisma {
     longitude?: FloatFieldUpdateOperationsInput | number
     location?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+    submittedBy?: EnumSubmissionTypeFieldUpdateOperationsInput | $Enums.SubmissionType
     budget?: NullableIntFieldUpdateOperationsInput | number | null
     votingStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     votingEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6382,6 +4995,7 @@ export namespace Prisma {
     longitude?: FloatFieldUpdateOperationsInput | number
     location?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+    submittedBy?: EnumSubmissionTypeFieldUpdateOperationsInput | $Enums.SubmissionType
     budget?: NullableIntFieldUpdateOperationsInput | number | null
     votingStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     votingEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6391,54 +5005,55 @@ export namespace Prisma {
   export type VoteCreateInput = {
     id?: string
     voteType: $Enums.VoteType
+    sessionId?: string | null
     createdAt?: Date | string
-    user: UserCreateNestedOneWithoutVotesInput
     project: ProjectCreateNestedOneWithoutVotesInput
   }
 
   export type VoteUncheckedCreateInput = {
     id?: string
-    userId: string
     projectId: string
     voteType: $Enums.VoteType
+    sessionId?: string | null
     createdAt?: Date | string
   }
 
   export type VoteUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     voteType?: EnumVoteTypeFieldUpdateOperationsInput | $Enums.VoteType
+    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutVotesNestedInput
     project?: ProjectUpdateOneRequiredWithoutVotesNestedInput
   }
 
   export type VoteUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
     projectId?: StringFieldUpdateOperationsInput | string
     voteType?: EnumVoteTypeFieldUpdateOperationsInput | $Enums.VoteType
+    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type VoteCreateManyInput = {
     id?: string
-    userId: string
     projectId: string
     voteType: $Enums.VoteType
+    sessionId?: string | null
     createdAt?: Date | string
   }
 
   export type VoteUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     voteType?: EnumVoteTypeFieldUpdateOperationsInput | $Enums.VoteType
+    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type VoteUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
     projectId?: StringFieldUpdateOperationsInput | string
     voteType?: EnumVoteTypeFieldUpdateOperationsInput | $Enums.VoteType
+    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -6451,13 +5066,12 @@ export namespace Prisma {
     longitude: number
     location: string
     status?: $Enums.SubmissionStatus
+    submitterName?: string
     createdAt?: Date | string
-    user: UserCreateNestedOneWithoutIdeaSubmissionsInput
   }
 
   export type IdeaSubmissionUncheckedCreateInput = {
     id?: string
-    userId: string
     title: string
     description: string
     category: $Enums.ProjectCategory
@@ -6465,6 +5079,7 @@ export namespace Prisma {
     longitude: number
     location: string
     status?: $Enums.SubmissionStatus
+    submitterName?: string
     createdAt?: Date | string
   }
 
@@ -6477,13 +5092,12 @@ export namespace Prisma {
     longitude?: FloatFieldUpdateOperationsInput | number
     location?: StringFieldUpdateOperationsInput | string
     status?: EnumSubmissionStatusFieldUpdateOperationsInput | $Enums.SubmissionStatus
+    submitterName?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutIdeaSubmissionsNestedInput
   }
 
   export type IdeaSubmissionUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     category?: EnumProjectCategoryFieldUpdateOperationsInput | $Enums.ProjectCategory
@@ -6491,12 +5105,12 @@ export namespace Prisma {
     longitude?: FloatFieldUpdateOperationsInput | number
     location?: StringFieldUpdateOperationsInput | string
     status?: EnumSubmissionStatusFieldUpdateOperationsInput | $Enums.SubmissionStatus
+    submitterName?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type IdeaSubmissionCreateManyInput = {
     id?: string
-    userId: string
     title: string
     description: string
     category: $Enums.ProjectCategory
@@ -6504,6 +5118,7 @@ export namespace Prisma {
     longitude: number
     location: string
     status?: $Enums.SubmissionStatus
+    submitterName?: string
     createdAt?: Date | string
   }
 
@@ -6516,12 +5131,12 @@ export namespace Prisma {
     longitude?: FloatFieldUpdateOperationsInput | number
     location?: StringFieldUpdateOperationsInput | string
     status?: EnumSubmissionStatusFieldUpdateOperationsInput | $Enums.SubmissionStatus
+    submitterName?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type IdeaSubmissionUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     category?: EnumProjectCategoryFieldUpdateOperationsInput | $Enums.ProjectCategory
@@ -6529,6 +5144,7 @@ export namespace Prisma {
     longitude?: FloatFieldUpdateOperationsInput | number
     location?: StringFieldUpdateOperationsInput | string
     status?: EnumSubmissionStatusFieldUpdateOperationsInput | $Enums.SubmissionStatus
+    submitterName?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -6544,81 +5160,6 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringFilter<$PrismaModel> | string
-  }
-
-  export type EnumUserTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.UserType | EnumUserTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.UserType[]
-    notIn?: $Enums.UserType[]
-    not?: NestedEnumUserTypeFilter<$PrismaModel> | $Enums.UserType
-  }
-
-  export type VoteListRelationFilter = {
-    every?: VoteWhereInput
-    some?: VoteWhereInput
-    none?: VoteWhereInput
-  }
-
-  export type IdeaSubmissionListRelationFilter = {
-    every?: IdeaSubmissionWhereInput
-    some?: IdeaSubmissionWhereInput
-    none?: IdeaSubmissionWhereInput
-  }
-
-  export type VoteOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type IdeaSubmissionOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type UserCountOrderByAggregateInput = {
-    id?: SortOrder
-    email?: SortOrder
-    name?: SortOrder
-    userType?: SortOrder
-  }
-
-  export type UserMaxOrderByAggregateInput = {
-    id?: SortOrder
-    email?: SortOrder
-    name?: SortOrder
-    userType?: SortOrder
-  }
-
-  export type UserMinOrderByAggregateInput = {
-    id?: SortOrder
-    email?: SortOrder
-    name?: SortOrder
-    userType?: SortOrder
-  }
-
-  export type StringWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[]
-    notIn?: string[]
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
-  }
-
-  export type EnumUserTypeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.UserType | EnumUserTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.UserType[]
-    notIn?: $Enums.UserType[]
-    not?: NestedEnumUserTypeWithAggregatesFilter<$PrismaModel> | $Enums.UserType
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumUserTypeFilter<$PrismaModel>
-    _max?: NestedEnumUserTypeFilter<$PrismaModel>
   }
 
   export type EnumProjectCategoryFilter<$PrismaModel = never> = {
@@ -6660,6 +5201,13 @@ export namespace Prisma {
     not?: NestedEnumProjectStatusFilter<$PrismaModel> | $Enums.ProjectStatus
   }
 
+  export type EnumSubmissionTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.SubmissionType | EnumSubmissionTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.SubmissionType[]
+    notIn?: $Enums.SubmissionType[]
+    not?: NestedEnumSubmissionTypeFilter<$PrismaModel> | $Enums.SubmissionType
+  }
+
   export type IntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | null
@@ -6693,9 +5241,19 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type VoteListRelationFilter = {
+    every?: VoteWhereInput
+    some?: VoteWhereInput
+    none?: VoteWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
+  }
+
+  export type VoteOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type ProjectCountOrderByAggregateInput = {
@@ -6707,6 +5265,7 @@ export namespace Prisma {
     longitude?: SortOrder
     location?: SortOrder
     status?: SortOrder
+    submittedBy?: SortOrder
     budget?: SortOrder
     votingStart?: SortOrder
     votingEnd?: SortOrder
@@ -6728,6 +5287,7 @@ export namespace Prisma {
     longitude?: SortOrder
     location?: SortOrder
     status?: SortOrder
+    submittedBy?: SortOrder
     budget?: SortOrder
     votingStart?: SortOrder
     votingEnd?: SortOrder
@@ -6743,6 +5303,7 @@ export namespace Prisma {
     longitude?: SortOrder
     location?: SortOrder
     status?: SortOrder
+    submittedBy?: SortOrder
     budget?: SortOrder
     votingStart?: SortOrder
     votingEnd?: SortOrder
@@ -6753,6 +5314,23 @@ export namespace Prisma {
     latitude?: SortOrder
     longitude?: SortOrder
     budget?: SortOrder
+  }
+
+  export type StringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[]
+    notIn?: string[]
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
   }
 
   export type EnumProjectCategoryWithAggregatesFilter<$PrismaModel = never> = {
@@ -6808,6 +5386,16 @@ export namespace Prisma {
     _max?: NestedEnumProjectStatusFilter<$PrismaModel>
   }
 
+  export type EnumSubmissionTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SubmissionType | EnumSubmissionTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.SubmissionType[]
+    notIn?: $Enums.SubmissionType[]
+    not?: NestedEnumSubmissionTypeWithAggregatesFilter<$PrismaModel> | $Enums.SubmissionType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSubmissionTypeFilter<$PrismaModel>
+    _max?: NestedEnumSubmissionTypeFilter<$PrismaModel>
+  }
+
   export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | null
@@ -6859,42 +5447,32 @@ export namespace Prisma {
     not?: NestedEnumVoteTypeFilter<$PrismaModel> | $Enums.VoteType
   }
 
-  export type UserScalarRelationFilter = {
-    is?: UserWhereInput
-    isNot?: UserWhereInput
-  }
-
   export type ProjectScalarRelationFilter = {
     is?: ProjectWhereInput
     isNot?: ProjectWhereInput
   }
 
-  export type VoteUserIdProjectIdCompoundUniqueInput = {
-    userId: string
-    projectId: string
-  }
-
   export type VoteCountOrderByAggregateInput = {
     id?: SortOrder
-    userId?: SortOrder
     projectId?: SortOrder
     voteType?: SortOrder
+    sessionId?: SortOrder
     createdAt?: SortOrder
   }
 
   export type VoteMaxOrderByAggregateInput = {
     id?: SortOrder
-    userId?: SortOrder
     projectId?: SortOrder
     voteType?: SortOrder
+    sessionId?: SortOrder
     createdAt?: SortOrder
   }
 
   export type VoteMinOrderByAggregateInput = {
     id?: SortOrder
-    userId?: SortOrder
     projectId?: SortOrder
     voteType?: SortOrder
+    sessionId?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -6917,7 +5495,6 @@ export namespace Prisma {
 
   export type IdeaSubmissionCountOrderByAggregateInput = {
     id?: SortOrder
-    userId?: SortOrder
     title?: SortOrder
     description?: SortOrder
     category?: SortOrder
@@ -6925,6 +5502,7 @@ export namespace Prisma {
     longitude?: SortOrder
     location?: SortOrder
     status?: SortOrder
+    submitterName?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -6935,7 +5513,6 @@ export namespace Prisma {
 
   export type IdeaSubmissionMaxOrderByAggregateInput = {
     id?: SortOrder
-    userId?: SortOrder
     title?: SortOrder
     description?: SortOrder
     category?: SortOrder
@@ -6943,12 +5520,12 @@ export namespace Prisma {
     longitude?: SortOrder
     location?: SortOrder
     status?: SortOrder
+    submitterName?: SortOrder
     createdAt?: SortOrder
   }
 
   export type IdeaSubmissionMinOrderByAggregateInput = {
     id?: SortOrder
-    userId?: SortOrder
     title?: SortOrder
     description?: SortOrder
     category?: SortOrder
@@ -6956,6 +5533,7 @@ export namespace Prisma {
     longitude?: SortOrder
     location?: SortOrder
     status?: SortOrder
+    submitterName?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -6974,98 +5552,6 @@ export namespace Prisma {
     _max?: NestedEnumSubmissionStatusFilter<$PrismaModel>
   }
 
-  export type VoteCreateNestedManyWithoutUserInput = {
-    create?: XOR<VoteCreateWithoutUserInput, VoteUncheckedCreateWithoutUserInput> | VoteCreateWithoutUserInput[] | VoteUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: VoteCreateOrConnectWithoutUserInput | VoteCreateOrConnectWithoutUserInput[]
-    createMany?: VoteCreateManyUserInputEnvelope
-    connect?: VoteWhereUniqueInput | VoteWhereUniqueInput[]
-  }
-
-  export type IdeaSubmissionCreateNestedManyWithoutUserInput = {
-    create?: XOR<IdeaSubmissionCreateWithoutUserInput, IdeaSubmissionUncheckedCreateWithoutUserInput> | IdeaSubmissionCreateWithoutUserInput[] | IdeaSubmissionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: IdeaSubmissionCreateOrConnectWithoutUserInput | IdeaSubmissionCreateOrConnectWithoutUserInput[]
-    createMany?: IdeaSubmissionCreateManyUserInputEnvelope
-    connect?: IdeaSubmissionWhereUniqueInput | IdeaSubmissionWhereUniqueInput[]
-  }
-
-  export type VoteUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<VoteCreateWithoutUserInput, VoteUncheckedCreateWithoutUserInput> | VoteCreateWithoutUserInput[] | VoteUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: VoteCreateOrConnectWithoutUserInput | VoteCreateOrConnectWithoutUserInput[]
-    createMany?: VoteCreateManyUserInputEnvelope
-    connect?: VoteWhereUniqueInput | VoteWhereUniqueInput[]
-  }
-
-  export type IdeaSubmissionUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<IdeaSubmissionCreateWithoutUserInput, IdeaSubmissionUncheckedCreateWithoutUserInput> | IdeaSubmissionCreateWithoutUserInput[] | IdeaSubmissionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: IdeaSubmissionCreateOrConnectWithoutUserInput | IdeaSubmissionCreateOrConnectWithoutUserInput[]
-    createMany?: IdeaSubmissionCreateManyUserInputEnvelope
-    connect?: IdeaSubmissionWhereUniqueInput | IdeaSubmissionWhereUniqueInput[]
-  }
-
-  export type StringFieldUpdateOperationsInput = {
-    set?: string
-  }
-
-  export type EnumUserTypeFieldUpdateOperationsInput = {
-    set?: $Enums.UserType
-  }
-
-  export type VoteUpdateManyWithoutUserNestedInput = {
-    create?: XOR<VoteCreateWithoutUserInput, VoteUncheckedCreateWithoutUserInput> | VoteCreateWithoutUserInput[] | VoteUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: VoteCreateOrConnectWithoutUserInput | VoteCreateOrConnectWithoutUserInput[]
-    upsert?: VoteUpsertWithWhereUniqueWithoutUserInput | VoteUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: VoteCreateManyUserInputEnvelope
-    set?: VoteWhereUniqueInput | VoteWhereUniqueInput[]
-    disconnect?: VoteWhereUniqueInput | VoteWhereUniqueInput[]
-    delete?: VoteWhereUniqueInput | VoteWhereUniqueInput[]
-    connect?: VoteWhereUniqueInput | VoteWhereUniqueInput[]
-    update?: VoteUpdateWithWhereUniqueWithoutUserInput | VoteUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: VoteUpdateManyWithWhereWithoutUserInput | VoteUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: VoteScalarWhereInput | VoteScalarWhereInput[]
-  }
-
-  export type IdeaSubmissionUpdateManyWithoutUserNestedInput = {
-    create?: XOR<IdeaSubmissionCreateWithoutUserInput, IdeaSubmissionUncheckedCreateWithoutUserInput> | IdeaSubmissionCreateWithoutUserInput[] | IdeaSubmissionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: IdeaSubmissionCreateOrConnectWithoutUserInput | IdeaSubmissionCreateOrConnectWithoutUserInput[]
-    upsert?: IdeaSubmissionUpsertWithWhereUniqueWithoutUserInput | IdeaSubmissionUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: IdeaSubmissionCreateManyUserInputEnvelope
-    set?: IdeaSubmissionWhereUniqueInput | IdeaSubmissionWhereUniqueInput[]
-    disconnect?: IdeaSubmissionWhereUniqueInput | IdeaSubmissionWhereUniqueInput[]
-    delete?: IdeaSubmissionWhereUniqueInput | IdeaSubmissionWhereUniqueInput[]
-    connect?: IdeaSubmissionWhereUniqueInput | IdeaSubmissionWhereUniqueInput[]
-    update?: IdeaSubmissionUpdateWithWhereUniqueWithoutUserInput | IdeaSubmissionUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: IdeaSubmissionUpdateManyWithWhereWithoutUserInput | IdeaSubmissionUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: IdeaSubmissionScalarWhereInput | IdeaSubmissionScalarWhereInput[]
-  }
-
-  export type VoteUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<VoteCreateWithoutUserInput, VoteUncheckedCreateWithoutUserInput> | VoteCreateWithoutUserInput[] | VoteUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: VoteCreateOrConnectWithoutUserInput | VoteCreateOrConnectWithoutUserInput[]
-    upsert?: VoteUpsertWithWhereUniqueWithoutUserInput | VoteUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: VoteCreateManyUserInputEnvelope
-    set?: VoteWhereUniqueInput | VoteWhereUniqueInput[]
-    disconnect?: VoteWhereUniqueInput | VoteWhereUniqueInput[]
-    delete?: VoteWhereUniqueInput | VoteWhereUniqueInput[]
-    connect?: VoteWhereUniqueInput | VoteWhereUniqueInput[]
-    update?: VoteUpdateWithWhereUniqueWithoutUserInput | VoteUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: VoteUpdateManyWithWhereWithoutUserInput | VoteUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: VoteScalarWhereInput | VoteScalarWhereInput[]
-  }
-
-  export type IdeaSubmissionUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<IdeaSubmissionCreateWithoutUserInput, IdeaSubmissionUncheckedCreateWithoutUserInput> | IdeaSubmissionCreateWithoutUserInput[] | IdeaSubmissionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: IdeaSubmissionCreateOrConnectWithoutUserInput | IdeaSubmissionCreateOrConnectWithoutUserInput[]
-    upsert?: IdeaSubmissionUpsertWithWhereUniqueWithoutUserInput | IdeaSubmissionUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: IdeaSubmissionCreateManyUserInputEnvelope
-    set?: IdeaSubmissionWhereUniqueInput | IdeaSubmissionWhereUniqueInput[]
-    disconnect?: IdeaSubmissionWhereUniqueInput | IdeaSubmissionWhereUniqueInput[]
-    delete?: IdeaSubmissionWhereUniqueInput | IdeaSubmissionWhereUniqueInput[]
-    connect?: IdeaSubmissionWhereUniqueInput | IdeaSubmissionWhereUniqueInput[]
-    update?: IdeaSubmissionUpdateWithWhereUniqueWithoutUserInput | IdeaSubmissionUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: IdeaSubmissionUpdateManyWithWhereWithoutUserInput | IdeaSubmissionUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: IdeaSubmissionScalarWhereInput | IdeaSubmissionScalarWhereInput[]
-  }
-
   export type VoteCreateNestedManyWithoutProjectInput = {
     create?: XOR<VoteCreateWithoutProjectInput, VoteUncheckedCreateWithoutProjectInput> | VoteCreateWithoutProjectInput[] | VoteUncheckedCreateWithoutProjectInput[]
     connectOrCreate?: VoteCreateOrConnectWithoutProjectInput | VoteCreateOrConnectWithoutProjectInput[]
@@ -7078,6 +5564,10 @@ export namespace Prisma {
     connectOrCreate?: VoteCreateOrConnectWithoutProjectInput | VoteCreateOrConnectWithoutProjectInput[]
     createMany?: VoteCreateManyProjectInputEnvelope
     connect?: VoteWhereUniqueInput | VoteWhereUniqueInput[]
+  }
+
+  export type StringFieldUpdateOperationsInput = {
+    set?: string
   }
 
   export type EnumProjectCategoryFieldUpdateOperationsInput = {
@@ -7098,6 +5588,10 @@ export namespace Prisma {
 
   export type EnumProjectStatusFieldUpdateOperationsInput = {
     set?: $Enums.ProjectStatus
+  }
+
+  export type EnumSubmissionTypeFieldUpdateOperationsInput = {
+    set?: $Enums.SubmissionType
   }
 
   export type NullableIntFieldUpdateOperationsInput = {
@@ -7144,12 +5638,6 @@ export namespace Prisma {
     deleteMany?: VoteScalarWhereInput | VoteScalarWhereInput[]
   }
 
-  export type UserCreateNestedOneWithoutVotesInput = {
-    create?: XOR<UserCreateWithoutVotesInput, UserUncheckedCreateWithoutVotesInput>
-    connectOrCreate?: UserCreateOrConnectWithoutVotesInput
-    connect?: UserWhereUniqueInput
-  }
-
   export type ProjectCreateNestedOneWithoutVotesInput = {
     create?: XOR<ProjectCreateWithoutVotesInput, ProjectUncheckedCreateWithoutVotesInput>
     connectOrCreate?: ProjectCreateOrConnectWithoutVotesInput
@@ -7160,14 +5648,6 @@ export namespace Prisma {
     set?: $Enums.VoteType
   }
 
-  export type UserUpdateOneRequiredWithoutVotesNestedInput = {
-    create?: XOR<UserCreateWithoutVotesInput, UserUncheckedCreateWithoutVotesInput>
-    connectOrCreate?: UserCreateOrConnectWithoutVotesInput
-    upsert?: UserUpsertWithoutVotesInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutVotesInput, UserUpdateWithoutVotesInput>, UserUncheckedUpdateWithoutVotesInput>
-  }
-
   export type ProjectUpdateOneRequiredWithoutVotesNestedInput = {
     create?: XOR<ProjectCreateWithoutVotesInput, ProjectUncheckedCreateWithoutVotesInput>
     connectOrCreate?: ProjectCreateOrConnectWithoutVotesInput
@@ -7176,22 +5656,8 @@ export namespace Prisma {
     update?: XOR<XOR<ProjectUpdateToOneWithWhereWithoutVotesInput, ProjectUpdateWithoutVotesInput>, ProjectUncheckedUpdateWithoutVotesInput>
   }
 
-  export type UserCreateNestedOneWithoutIdeaSubmissionsInput = {
-    create?: XOR<UserCreateWithoutIdeaSubmissionsInput, UserUncheckedCreateWithoutIdeaSubmissionsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutIdeaSubmissionsInput
-    connect?: UserWhereUniqueInput
-  }
-
   export type EnumSubmissionStatusFieldUpdateOperationsInput = {
     set?: $Enums.SubmissionStatus
-  }
-
-  export type UserUpdateOneRequiredWithoutIdeaSubmissionsNestedInput = {
-    create?: XOR<UserCreateWithoutIdeaSubmissionsInput, UserUncheckedCreateWithoutIdeaSubmissionsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutIdeaSubmissionsInput
-    upsert?: UserUpsertWithoutIdeaSubmissionsInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutIdeaSubmissionsInput, UserUpdateWithoutIdeaSubmissionsInput>, UserUncheckedUpdateWithoutIdeaSubmissionsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -7206,51 +5672,6 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringFilter<$PrismaModel> | string
-  }
-
-  export type NestedEnumUserTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.UserType | EnumUserTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.UserType[]
-    notIn?: $Enums.UserType[]
-    not?: NestedEnumUserTypeFilter<$PrismaModel> | $Enums.UserType
-  }
-
-  export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[]
-    notIn?: string[]
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
-  }
-
-  export type NestedIntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
-  export type NestedEnumUserTypeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.UserType | EnumUserTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.UserType[]
-    notIn?: $Enums.UserType[]
-    not?: NestedEnumUserTypeWithAggregatesFilter<$PrismaModel> | $Enums.UserType
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumUserTypeFilter<$PrismaModel>
-    _max?: NestedEnumUserTypeFilter<$PrismaModel>
   }
 
   export type NestedEnumProjectCategoryFilter<$PrismaModel = never> = {
@@ -7292,6 +5713,13 @@ export namespace Prisma {
     not?: NestedEnumProjectStatusFilter<$PrismaModel> | $Enums.ProjectStatus
   }
 
+  export type NestedEnumSubmissionTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.SubmissionType | EnumSubmissionTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.SubmissionType[]
+    notIn?: $Enums.SubmissionType[]
+    not?: NestedEnumSubmissionTypeFilter<$PrismaModel> | $Enums.SubmissionType
+  }
+
   export type NestedIntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | null
@@ -7323,6 +5751,34 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[]
+    notIn?: string[]
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type NestedIntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
   }
 
   export type NestedEnumProjectCategoryWithAggregatesFilter<$PrismaModel = never> = {
@@ -7376,6 +5832,16 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumProjectStatusFilter<$PrismaModel>
     _max?: NestedEnumProjectStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumSubmissionTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SubmissionType | EnumSubmissionTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.SubmissionType[]
+    notIn?: $Enums.SubmissionType[]
+    not?: NestedEnumSubmissionTypeWithAggregatesFilter<$PrismaModel> | $Enums.SubmissionType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSubmissionTypeFilter<$PrismaModel>
+    _max?: NestedEnumSubmissionTypeFilter<$PrismaModel>
   }
 
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -7467,132 +5933,17 @@ export namespace Prisma {
     _max?: NestedEnumSubmissionStatusFilter<$PrismaModel>
   }
 
-  export type VoteCreateWithoutUserInput = {
-    id?: string
-    voteType: $Enums.VoteType
-    createdAt?: Date | string
-    project: ProjectCreateNestedOneWithoutVotesInput
-  }
-
-  export type VoteUncheckedCreateWithoutUserInput = {
-    id?: string
-    projectId: string
-    voteType: $Enums.VoteType
-    createdAt?: Date | string
-  }
-
-  export type VoteCreateOrConnectWithoutUserInput = {
-    where: VoteWhereUniqueInput
-    create: XOR<VoteCreateWithoutUserInput, VoteUncheckedCreateWithoutUserInput>
-  }
-
-  export type VoteCreateManyUserInputEnvelope = {
-    data: VoteCreateManyUserInput | VoteCreateManyUserInput[]
-  }
-
-  export type IdeaSubmissionCreateWithoutUserInput = {
-    id?: string
-    title: string
-    description: string
-    category: $Enums.ProjectCategory
-    latitude: number
-    longitude: number
-    location: string
-    status?: $Enums.SubmissionStatus
-    createdAt?: Date | string
-  }
-
-  export type IdeaSubmissionUncheckedCreateWithoutUserInput = {
-    id?: string
-    title: string
-    description: string
-    category: $Enums.ProjectCategory
-    latitude: number
-    longitude: number
-    location: string
-    status?: $Enums.SubmissionStatus
-    createdAt?: Date | string
-  }
-
-  export type IdeaSubmissionCreateOrConnectWithoutUserInput = {
-    where: IdeaSubmissionWhereUniqueInput
-    create: XOR<IdeaSubmissionCreateWithoutUserInput, IdeaSubmissionUncheckedCreateWithoutUserInput>
-  }
-
-  export type IdeaSubmissionCreateManyUserInputEnvelope = {
-    data: IdeaSubmissionCreateManyUserInput | IdeaSubmissionCreateManyUserInput[]
-  }
-
-  export type VoteUpsertWithWhereUniqueWithoutUserInput = {
-    where: VoteWhereUniqueInput
-    update: XOR<VoteUpdateWithoutUserInput, VoteUncheckedUpdateWithoutUserInput>
-    create: XOR<VoteCreateWithoutUserInput, VoteUncheckedCreateWithoutUserInput>
-  }
-
-  export type VoteUpdateWithWhereUniqueWithoutUserInput = {
-    where: VoteWhereUniqueInput
-    data: XOR<VoteUpdateWithoutUserInput, VoteUncheckedUpdateWithoutUserInput>
-  }
-
-  export type VoteUpdateManyWithWhereWithoutUserInput = {
-    where: VoteScalarWhereInput
-    data: XOR<VoteUpdateManyMutationInput, VoteUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type VoteScalarWhereInput = {
-    AND?: VoteScalarWhereInput | VoteScalarWhereInput[]
-    OR?: VoteScalarWhereInput[]
-    NOT?: VoteScalarWhereInput | VoteScalarWhereInput[]
-    id?: StringFilter<"Vote"> | string
-    userId?: StringFilter<"Vote"> | string
-    projectId?: StringFilter<"Vote"> | string
-    voteType?: EnumVoteTypeFilter<"Vote"> | $Enums.VoteType
-    createdAt?: DateTimeFilter<"Vote"> | Date | string
-  }
-
-  export type IdeaSubmissionUpsertWithWhereUniqueWithoutUserInput = {
-    where: IdeaSubmissionWhereUniqueInput
-    update: XOR<IdeaSubmissionUpdateWithoutUserInput, IdeaSubmissionUncheckedUpdateWithoutUserInput>
-    create: XOR<IdeaSubmissionCreateWithoutUserInput, IdeaSubmissionUncheckedCreateWithoutUserInput>
-  }
-
-  export type IdeaSubmissionUpdateWithWhereUniqueWithoutUserInput = {
-    where: IdeaSubmissionWhereUniqueInput
-    data: XOR<IdeaSubmissionUpdateWithoutUserInput, IdeaSubmissionUncheckedUpdateWithoutUserInput>
-  }
-
-  export type IdeaSubmissionUpdateManyWithWhereWithoutUserInput = {
-    where: IdeaSubmissionScalarWhereInput
-    data: XOR<IdeaSubmissionUpdateManyMutationInput, IdeaSubmissionUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type IdeaSubmissionScalarWhereInput = {
-    AND?: IdeaSubmissionScalarWhereInput | IdeaSubmissionScalarWhereInput[]
-    OR?: IdeaSubmissionScalarWhereInput[]
-    NOT?: IdeaSubmissionScalarWhereInput | IdeaSubmissionScalarWhereInput[]
-    id?: StringFilter<"IdeaSubmission"> | string
-    userId?: StringFilter<"IdeaSubmission"> | string
-    title?: StringFilter<"IdeaSubmission"> | string
-    description?: StringFilter<"IdeaSubmission"> | string
-    category?: EnumProjectCategoryFilter<"IdeaSubmission"> | $Enums.ProjectCategory
-    latitude?: FloatFilter<"IdeaSubmission"> | number
-    longitude?: FloatFilter<"IdeaSubmission"> | number
-    location?: StringFilter<"IdeaSubmission"> | string
-    status?: EnumSubmissionStatusFilter<"IdeaSubmission"> | $Enums.SubmissionStatus
-    createdAt?: DateTimeFilter<"IdeaSubmission"> | Date | string
-  }
-
   export type VoteCreateWithoutProjectInput = {
     id?: string
     voteType: $Enums.VoteType
+    sessionId?: string | null
     createdAt?: Date | string
-    user: UserCreateNestedOneWithoutVotesInput
   }
 
   export type VoteUncheckedCreateWithoutProjectInput = {
     id?: string
-    userId: string
     voteType: $Enums.VoteType
+    sessionId?: string | null
     createdAt?: Date | string
   }
 
@@ -7621,25 +5972,15 @@ export namespace Prisma {
     data: XOR<VoteUpdateManyMutationInput, VoteUncheckedUpdateManyWithoutProjectInput>
   }
 
-  export type UserCreateWithoutVotesInput = {
-    id?: string
-    email: string
-    name: string
-    userType?: $Enums.UserType
-    ideaSubmissions?: IdeaSubmissionCreateNestedManyWithoutUserInput
-  }
-
-  export type UserUncheckedCreateWithoutVotesInput = {
-    id?: string
-    email: string
-    name: string
-    userType?: $Enums.UserType
-    ideaSubmissions?: IdeaSubmissionUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type UserCreateOrConnectWithoutVotesInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutVotesInput, UserUncheckedCreateWithoutVotesInput>
+  export type VoteScalarWhereInput = {
+    AND?: VoteScalarWhereInput | VoteScalarWhereInput[]
+    OR?: VoteScalarWhereInput[]
+    NOT?: VoteScalarWhereInput | VoteScalarWhereInput[]
+    id?: StringFilter<"Vote"> | string
+    projectId?: StringFilter<"Vote"> | string
+    voteType?: EnumVoteTypeFilter<"Vote"> | $Enums.VoteType
+    sessionId?: StringNullableFilter<"Vote"> | string | null
+    createdAt?: DateTimeFilter<"Vote"> | Date | string
   }
 
   export type ProjectCreateWithoutVotesInput = {
@@ -7651,6 +5992,7 @@ export namespace Prisma {
     longitude: number
     location?: string | null
     status?: $Enums.ProjectStatus
+    submittedBy?: $Enums.SubmissionType
     budget?: number | null
     votingStart?: Date | string | null
     votingEnd?: Date | string | null
@@ -7666,6 +6008,7 @@ export namespace Prisma {
     longitude: number
     location?: string | null
     status?: $Enums.ProjectStatus
+    submittedBy?: $Enums.SubmissionType
     budget?: number | null
     votingStart?: Date | string | null
     votingEnd?: Date | string | null
@@ -7675,33 +6018,6 @@ export namespace Prisma {
   export type ProjectCreateOrConnectWithoutVotesInput = {
     where: ProjectWhereUniqueInput
     create: XOR<ProjectCreateWithoutVotesInput, ProjectUncheckedCreateWithoutVotesInput>
-  }
-
-  export type UserUpsertWithoutVotesInput = {
-    update: XOR<UserUpdateWithoutVotesInput, UserUncheckedUpdateWithoutVotesInput>
-    create: XOR<UserCreateWithoutVotesInput, UserUncheckedCreateWithoutVotesInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutVotesInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutVotesInput, UserUncheckedUpdateWithoutVotesInput>
-  }
-
-  export type UserUpdateWithoutVotesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
-    ideaSubmissions?: IdeaSubmissionUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutVotesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
-    ideaSubmissions?: IdeaSubmissionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ProjectUpsertWithoutVotesInput = {
@@ -7724,6 +6040,7 @@ export namespace Prisma {
     longitude?: FloatFieldUpdateOperationsInput | number
     location?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+    submittedBy?: EnumSubmissionTypeFieldUpdateOperationsInput | $Enums.SubmissionType
     budget?: NullableIntFieldUpdateOperationsInput | number | null
     votingStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     votingEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7739,161 +6056,38 @@ export namespace Prisma {
     longitude?: FloatFieldUpdateOperationsInput | number
     location?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+    submittedBy?: EnumSubmissionTypeFieldUpdateOperationsInput | $Enums.SubmissionType
     budget?: NullableIntFieldUpdateOperationsInput | number | null
     votingStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     votingEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type UserCreateWithoutIdeaSubmissionsInput = {
-    id?: string
-    email: string
-    name: string
-    userType?: $Enums.UserType
-    votes?: VoteCreateNestedManyWithoutUserInput
-  }
-
-  export type UserUncheckedCreateWithoutIdeaSubmissionsInput = {
-    id?: string
-    email: string
-    name: string
-    userType?: $Enums.UserType
-    votes?: VoteUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type UserCreateOrConnectWithoutIdeaSubmissionsInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutIdeaSubmissionsInput, UserUncheckedCreateWithoutIdeaSubmissionsInput>
-  }
-
-  export type UserUpsertWithoutIdeaSubmissionsInput = {
-    update: XOR<UserUpdateWithoutIdeaSubmissionsInput, UserUncheckedUpdateWithoutIdeaSubmissionsInput>
-    create: XOR<UserCreateWithoutIdeaSubmissionsInput, UserUncheckedCreateWithoutIdeaSubmissionsInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutIdeaSubmissionsInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutIdeaSubmissionsInput, UserUncheckedUpdateWithoutIdeaSubmissionsInput>
-  }
-
-  export type UserUpdateWithoutIdeaSubmissionsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
-    votes?: VoteUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutIdeaSubmissionsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
-    votes?: VoteUncheckedUpdateManyWithoutUserNestedInput
-  }
-
-  export type VoteCreateManyUserInput = {
-    id?: string
-    projectId: string
-    voteType: $Enums.VoteType
-    createdAt?: Date | string
-  }
-
-  export type IdeaSubmissionCreateManyUserInput = {
-    id?: string
-    title: string
-    description: string
-    category: $Enums.ProjectCategory
-    latitude: number
-    longitude: number
-    location: string
-    status?: $Enums.SubmissionStatus
-    createdAt?: Date | string
-  }
-
-  export type VoteUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    voteType?: EnumVoteTypeFieldUpdateOperationsInput | $Enums.VoteType
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    project?: ProjectUpdateOneRequiredWithoutVotesNestedInput
-  }
-
-  export type VoteUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    projectId?: StringFieldUpdateOperationsInput | string
-    voteType?: EnumVoteTypeFieldUpdateOperationsInput | $Enums.VoteType
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type VoteUncheckedUpdateManyWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    projectId?: StringFieldUpdateOperationsInput | string
-    voteType?: EnumVoteTypeFieldUpdateOperationsInput | $Enums.VoteType
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type IdeaSubmissionUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    category?: EnumProjectCategoryFieldUpdateOperationsInput | $Enums.ProjectCategory
-    latitude?: FloatFieldUpdateOperationsInput | number
-    longitude?: FloatFieldUpdateOperationsInput | number
-    location?: StringFieldUpdateOperationsInput | string
-    status?: EnumSubmissionStatusFieldUpdateOperationsInput | $Enums.SubmissionStatus
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type IdeaSubmissionUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    category?: EnumProjectCategoryFieldUpdateOperationsInput | $Enums.ProjectCategory
-    latitude?: FloatFieldUpdateOperationsInput | number
-    longitude?: FloatFieldUpdateOperationsInput | number
-    location?: StringFieldUpdateOperationsInput | string
-    status?: EnumSubmissionStatusFieldUpdateOperationsInput | $Enums.SubmissionStatus
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type IdeaSubmissionUncheckedUpdateManyWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    category?: EnumProjectCategoryFieldUpdateOperationsInput | $Enums.ProjectCategory
-    latitude?: FloatFieldUpdateOperationsInput | number
-    longitude?: FloatFieldUpdateOperationsInput | number
-    location?: StringFieldUpdateOperationsInput | string
-    status?: EnumSubmissionStatusFieldUpdateOperationsInput | $Enums.SubmissionStatus
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
   export type VoteCreateManyProjectInput = {
     id?: string
-    userId: string
     voteType: $Enums.VoteType
+    sessionId?: string | null
     createdAt?: Date | string
   }
 
   export type VoteUpdateWithoutProjectInput = {
     id?: StringFieldUpdateOperationsInput | string
     voteType?: EnumVoteTypeFieldUpdateOperationsInput | $Enums.VoteType
+    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutVotesNestedInput
   }
 
   export type VoteUncheckedUpdateWithoutProjectInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
     voteType?: EnumVoteTypeFieldUpdateOperationsInput | $Enums.VoteType
+    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type VoteUncheckedUpdateManyWithoutProjectInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
     voteType?: EnumVoteTypeFieldUpdateOperationsInput | $Enums.VoteType
+    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

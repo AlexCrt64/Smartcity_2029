@@ -10,7 +10,7 @@ const Login = () => {
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
       <View style={styles.headcontainer}>
-        <TouchableOpacity onPress={() => navigate('/welcome')}>
+        <TouchableOpacity onPress={() => navigate('/main')}>
           <BackSvg width={25} height={25} style={{ marginBottom: 54 }} />
         </TouchableOpacity>
         <View style={{ marginBottom: 54 }}>

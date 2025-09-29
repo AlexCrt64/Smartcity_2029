@@ -10,8 +10,8 @@ const SignUp = () => {
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
       <View style={styles.headcontainer}>
-        <TouchableOpacity onPress={() => navigate('/welcome')}>
-          <BackSvg width={25} height={25} />
+                <TouchableOpacity onPress={() => navigate('/main')}>
+          <BackSvg width={25} height={25} style={{ marginBottom: 54 }} />
         </TouchableOpacity>
         <View>
           <Logo width={163.5} height={51.35} />

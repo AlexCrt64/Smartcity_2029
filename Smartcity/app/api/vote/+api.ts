@@ -5,9 +5,9 @@ const prisma = new PrismaClient();
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { userId, projectId, voteType } = body;
+    const { projectId, voteType, sessionId } = body;
 
-    if (!userId || !projectId || !voteType) {
+    if (!projectId || !voteType) {
       return Response.json(
         { success: false, error: 'Missing required fields' },
         { status: 400 }
@@ -43,25 +43,36 @@ export async function POST(request: Request) {
     // Check if voting period is active
     const now = new Date();
     if (project.votingEnd && now > project.votingEnd) {
+      // Update project status to closed if voting period ended
+      await prisma.project.update({
+        where: { id: projectId },
+        data: { status: 'APPROUVE' }
+      });
+      
       return Response.json(
         { success: false, error: 'Voting period has ended' },
         { status: 400 }
       );
     }
 
-    // Upsert vote (update if exists, create if not)
-    const vote = await prisma.vote.upsert({
-      where: {
-        userId_projectId: {
-          userId: userId,
-          projectId: projectId
+    // If no voting end date is set and status is VOTE_EN_COURS, allow voting
+    if (!project.votingStart && project.status === 'VOTE_EN_COURS') {
+      // Set voting start time for legacy projects
+      await prisma.project.update({
+        where: { id: projectId },
+        data: { 
+          votingStart: new Date(),
+          votingEnd: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days
         }
-      },
-      update: { voteType },
-      create: {
-        userId: userId,
+      });
+    }
+
+    // Create vote (no user authentication needed for demo)
+    const vote = await prisma.vote.create({
+      data: {
         projectId: projectId,
-        voteType
+        voteType: voteType,
+        sessionId: sessionId || `demo_${Date.now()}`
       }
     });
 
@@ -96,20 +107,20 @@ export async function POST(request: Request) {
 export async function DELETE(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
-    const userId = searchParams.get('userId');
+    const voteId = searchParams.get('voteId');
     const projectId = searchParams.get('projectId');
 
-    if (!userId || !projectId) {
+    if (!voteId || !projectId) {
       return Response.json(
-        { success: false, error: 'Missing userId or projectId' },
+        { success: false, error: 'Missing voteId or projectId' },
         { status: 400 }
       );
     }
 
-    // Remove vote
+    // Remove vote by ID (demo purposes)
     await prisma.vote.deleteMany({
       where: {
-        userId: userId,
+        id: voteId,
         projectId: projectId
       }
     });

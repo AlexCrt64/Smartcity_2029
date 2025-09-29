@@ -40,14 +40,30 @@ export default function RootLayout() {
   if (!fontsLoaded) return null;
 
   return (
-    <Stack screenOptions={{ headerShown: false }}>
+    <Stack screenOptions={{ 
+      headerShown: false,
+      animation: 'slide_from_right' // Default animation
+    }}>
       <Stack.Screen name="index" />
       <Stack.Screen name="welcome" />
+      <Stack.Screen name="main" />
       <Stack.Screen name="login" />
       <Stack.Screen name="sign_up" />
+      <Stack.Screen name="home" />
+      <Stack.Screen name="boite-a-idees" options={{ animation: 'slide_from_left' }} />
+      <Stack.Screen name="profile" options={{ animation: 'slide_from_left' }} />
+      <Stack.Screen name="account" />
+      <Stack.Screen name="personal_informations" />
       <Stack.Screen name="general_conditions" />
       <Stack.Screen name="legal_mentions" />
-      <Stack.Screen name="privacy_policy" />
+      <Stack.Screen name="Privacy_Policy" />
+      <Stack.Screen 
+        name="project/[id]" 
+        options={{ 
+          presentation: 'card',
+          animation: 'slide_from_left'
+        }} 
+      />
     </Stack>
   );
 }

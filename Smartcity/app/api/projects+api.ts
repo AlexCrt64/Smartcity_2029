@@ -62,3 +62,51 @@ export async function GET(request: Request) {
     );
   }
 }
+
+export async function POST(request: Request) {
+  try {
+    const body = await request.json();
+    const { title, description, category, location, latitude, longitude, submittedBy, status } = body;
+
+    // Validate required fields
+    if (!title || !description || !category || !location || !latitude || !longitude) {
+      return Response.json(
+        { success: false, error: 'Missing required fields' },
+        { status: 400 }
+      );
+    }
+
+    console.log('Creating project with:', { title, category, status: 'VOTE_EN_COURS' });
+
+    // Create the new project
+    const project = await prisma.project.create({
+      data: {
+        title,
+        description,
+        category,
+        location,
+        latitude: parseFloat(latitude),
+        longitude: parseFloat(longitude),
+        status: 'VOTE_EN_COURS', // Skip PROPOSAL phase, go straight to voting
+        // Set voting period for all new projects
+        votingStart: new Date(),
+        votingEnd: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
+      },
+    });
+
+    console.log('Project created successfully:', project.id);
+
+    return Response.json({
+      success: true,
+      project,
+      message: 'Project created successfully',
+    });
+
+  } catch (error) {
+    console.error('API Error:', error);
+    return Response.json(
+      { success: false, error: 'Failed to create project' },
+      { status: 500 }
+    );
+  }
+}

@@ -117,13 +117,6 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.UserScalarFieldEnum = {
-  id: 'id',
-  email: 'email',
-  name: 'name',
-  userType: 'userType'
-};
-
 exports.Prisma.ProjectScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -133,6 +126,7 @@ exports.Prisma.ProjectScalarFieldEnum = {
   longitude: 'longitude',
   location: 'location',
   status: 'status',
+  submittedBy: 'submittedBy',
   budget: 'budget',
   votingStart: 'votingStart',
   votingEnd: 'votingEnd',
@@ -141,15 +135,14 @@ exports.Prisma.ProjectScalarFieldEnum = {
 
 exports.Prisma.VoteScalarFieldEnum = {
   id: 'id',
-  userId: 'userId',
   projectId: 'projectId',
   voteType: 'voteType',
+  sessionId: 'sessionId',
   createdAt: 'createdAt'
 };
 
 exports.Prisma.IdeaSubmissionScalarFieldEnum = {
   id: 'id',
-  userId: 'userId',
   title: 'title',
   description: 'description',
   category: 'category',
@@ -157,6 +150,7 @@ exports.Prisma.IdeaSubmissionScalarFieldEnum = {
   longitude: 'longitude',
   location: 'location',
   status: 'status',
+  submitterName: 'submitterName',
   createdAt: 'createdAt'
 };
 
@@ -169,11 +163,6 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
-exports.UserType = exports.$Enums.UserType = {
-  CITIZEN: 'CITIZEN',
-  ADMIN: 'ADMIN'
-};
-
 exports.ProjectCategory = exports.$Enums.ProjectCategory = {
   LOGEMENT: 'LOGEMENT',
   TRANSPORT: 'TRANSPORT',
@@ -190,6 +179,11 @@ exports.ProjectStatus = exports.$Enums.ProjectStatus = {
   TERMINE: 'TERMINE'
 };
 
+exports.SubmissionType = exports.$Enums.SubmissionType = {
+  CITY: 'CITY',
+  CITIZEN: 'CITIZEN'
+};
+
 exports.VoteType = exports.$Enums.VoteType = {
   UPVOTE: 'UPVOTE',
   DOWNVOTE: 'DOWNVOTE'
@@ -203,7 +197,6 @@ exports.SubmissionStatus = exports.$Enums.SubmissionStatus = {
 };
 
 exports.Prisma.ModelName = {
-  User: 'User',
   Project: 'Project',
   Vote: 'Vote',
   IdeaSubmission: 'IdeaSubmission'
