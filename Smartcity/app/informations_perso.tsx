@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import { Ionicons } from '@expo/vector-icons'
 
 export default function ProfileScreen() {
-  // Photos de profil pré-chargées
   const profilePhotos = [
     { id: 1, source: require('../assets/images/Crown_Logo.png'), name: 'Avatar 1' },
     { id: 2, source: require('../assets/images/Logo_Quartier_Libre.png'), name: 'Avatar 2' },
@@ -12,6 +11,7 @@ export default function ProfileScreen() {
   ];
 
   const [selectedPhoto, setSelectedPhoto] = useState(profilePhotos[0]);
+  const [showPhotoOptions, setShowPhotoOptions] = useState(false);
 
   return (
     <ScrollView style={styles.container}>
@@ -50,32 +50,49 @@ export default function ProfileScreen() {
         <Text style={styles.sectionTitle}>Photo de profil</Text>
         
         {/* Photo actuellement sélectionnée */}
-        <View style={styles.currentPhotoContainer}>
+        <TouchableOpacity 
+          style={styles.currentPhotoContainer}
+          onPress={() => setShowPhotoOptions(!showPhotoOptions)}
+        >
           <Image source={selectedPhoto.source} style={styles.currentPhoto} />
           <Text style={styles.currentPhotoText}>Photo actuelle</Text>
-        </View>
+          <Text style={styles.tapToChangeText}>Appuyer pour changer</Text>
+          <Ionicons 
+            name={showPhotoOptions ? "chevron-up" : "chevron-down"} 
+            size={20} 
+            color="#6b7280" 
+            style={styles.chevronIcon}
+          />
+        </TouchableOpacity>
 
-        {/* Sélection de nouvelles photos */}
-        <Text style={styles.choosePhotoText}>Choisir une nouvelle photo :</Text>
-        <View style={styles.photoGrid}>
-          {profilePhotos.map((photo) => (
-            <TouchableOpacity
-              key={photo.id}
-              style={[
-                styles.photoOption,
-                selectedPhoto.id === photo.id && styles.selectedPhotoOption
-              ]}
-              onPress={() => setSelectedPhoto(photo)}
-            >
-              <Image source={photo.source} style={styles.photoOptionImage} />
-              {selectedPhoto.id === photo.id && (
-                <View style={styles.selectedIndicator}>
-                  <Ionicons name="checkmark-circle" size={20} color="#4f46e5" />
-                </View>
-              )}
-            </TouchableOpacity>
-          ))}
-        </View>
+        {/* Sélection de nouvelles photos - Affiché seulement si showPhotoOptions est true */}
+        {showPhotoOptions && (
+          <>
+            <Text style={styles.choosePhotoText}>Choisir une nouvelle photo :</Text>
+            <View style={styles.photoGrid}>
+              {profilePhotos.map((photo) => (
+                <TouchableOpacity
+                  key={photo.id}
+                  style={[
+                    styles.photoOption,
+                    selectedPhoto.id === photo.id && styles.selectedPhotoOption
+                  ]}
+                  onPress={() => {
+                    setSelectedPhoto(photo);
+                    setShowPhotoOptions(false); // Fermer la grille après sélection
+                  }}
+                >
+                  <Image source={photo.source} style={styles.photoOptionImage} />
+                  {selectedPhoto.id === photo.id && (
+                    <View style={styles.selectedIndicator}>
+                      <Ionicons name="checkmark-circle" size={20} color="#4f46e5" />
+                    </View>
+                  )}
+                </TouchableOpacity>
+              ))}
+            </View>
+          </>
+        )}
       </View>
     </ScrollView>
   )
@@ -153,6 +170,15 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#6b7280',
     fontWeight: '500',
+  },
+  tapToChangeText: {
+    fontSize: 12,
+    color: '#9ca3af',
+    fontStyle: 'italic',
+    marginTop: 4,
+  },
+  chevronIcon: {
+    marginTop: 8,
   },
   choosePhotoText: {
     fontSize: 16,
