@@ -49,24 +49,24 @@ export default function ProfileScreen() {
 
         <View style={styles.card}>
           <Text style={styles.label}>Nom</Text>
-          <Text style={styles.value}>Test</Text>
+          <Text style={styles.value}>Doe</Text>
 
           <Text style={styles.label}>Prénom</Text>
-          <Text style={styles.value}>Test</Text>
+          <Text style={styles.value}>John</Text>
 
           <Text style={styles.label}>Date de naissance</Text>
-          <Text style={styles.value}>Test</Text>
+          <Text style={styles.value}>04/09/2000</Text>
         </View>
 
         <View style={styles.card}>
           <Text style={styles.label}>Adresse mail</Text>
-          <Text style={styles.value}>Test</Text>
+          <Text style={styles.value}>john.doe@gmail.com</Text>
 
           <Text style={styles.label}>Numéro de téléphone</Text>
-          <Text style={styles.value}>Test</Text>
+          <Text style={styles.value}>0683291926</Text>
 
           <Text style={styles.label}>Adresse</Text>
-          <Text style={styles.value}>Test</Text>
+          <Text style={styles.value}>16 Rue Théodore Blanc</Text>
         </View>
 
         {/* Section Photo de profil */}
