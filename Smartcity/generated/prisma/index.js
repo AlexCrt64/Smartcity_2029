@@ -185,7 +185,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/Users/admin/Smartcity_2029/Smartcity/generated/prisma",
+      "value": "C:\\Users\\jerem\\Documents\\GitHub\\Smartcity_2029\\Smartcity\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -194,12 +194,12 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "darwin-arm64",
+        "value": "windows",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/Users/admin/Smartcity_2029/Smartcity/prisma/schema.prisma",
+    "sourceFilePath": "C:\\Users\\jerem\\Documents\\GitHub\\Smartcity_2029\\Smartcity\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -213,6 +213,7 @@ const config = {
     "db"
   ],
   "activeProvider": "sqlite",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -261,8 +262,8 @@ exports.PrismaClient = PrismaClient
 Object.assign(exports, Prisma)
 
 // file annotations for bundling tools to include these files
-path.join(__dirname, "libquery_engine-darwin-arm64.dylib.node");
-path.join(process.cwd(), "generated/prisma/libquery_engine-darwin-arm64.dylib.node")
+path.join(__dirname, "query_engine-windows.dll.node");
+path.join(process.cwd(), "generated/prisma/query_engine-windows.dll.node")
 // file annotations for bundling tools to include these files
 path.join(__dirname, "schema.prisma");
 path.join(process.cwd(), "generated/prisma/schema.prisma")

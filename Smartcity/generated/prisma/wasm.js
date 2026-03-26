@@ -184,7 +184,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/Users/admin/Smartcity_2029/Smartcity/generated/prisma",
+      "value": "C:\\Users\\jerem\\Documents\\GitHub\\Smartcity_2029\\Smartcity\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -193,12 +193,12 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "darwin-arm64",
+        "value": "windows",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/Users/admin/Smartcity_2029/Smartcity/prisma/schema.prisma",
+    "sourceFilePath": "C:\\Users\\jerem\\Documents\\GitHub\\Smartcity_2029\\Smartcity\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -212,6 +212,7 @@ const config = {
     "db"
   ],
   "activeProvider": "sqlite",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
